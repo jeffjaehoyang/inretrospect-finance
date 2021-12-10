@@ -23,7 +23,6 @@ const CreateRecordForm = ({
     .split("T")[0];
 
   // event handlers
-
   const handleStartDateChange = (e: ChangeEvent<HTMLInputElement>) => {
     setStartDate(e.target.valueAsDate);
   };
@@ -40,17 +39,17 @@ const CreateRecordForm = ({
     <div className="w-full">
       <form>
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
+          <label className="block mb-2 text-sm font-bold text-gray-700">
             Company
           </label>
           <AsyncSearchBar setCompany={setCompany} />
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
+          <label className="block mb-2 text-sm font-bold text-gray-700">
             Track Start Date
           </label>
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
             id="date"
             type="date"
             placeholder="Start Date"
@@ -59,11 +58,11 @@ const CreateRecordForm = ({
           />
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
+          <label className="block mb-2 text-sm font-bold text-gray-700">
             Investment Amount in USD
           </label>
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
             id="username"
             type="number"
             placeholder="$"
@@ -71,11 +70,11 @@ const CreateRecordForm = ({
           />
         </div>
         <div>
-          <label className="block text-gray-700 text-sm font-bold mb-2">
+          <label className="block mb-2 text-sm font-bold text-gray-700">
             Notes
           </label>
           <textarea
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
             id="notes"
             placeholder="Notes"
             maxLength={100}

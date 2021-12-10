@@ -36,15 +36,30 @@ export const getStartDateMatchingData = (
   };
 };
 
+export const getWeeksDifference = (dt1: Date, dt2: Date) => {
+  const ONE_WEEK = 1000 * 60 * 60 * 24 * 7;
+  // Convert both dates to milliseconds
+  const date1_ms = dt1.getTime();
+  const date2_ms = dt2.getTime();
+  // Calculate the difference in milliseconds
+  const difference_ms = Math.abs(date1_ms - date2_ms);
+  // Convert back to weeks and return hole weeks
+  return Math.floor(difference_ms / ONE_WEEK);
+};
+
 const findNextAvailableDate = (
   originalDate: string,
   dates: Array<string>
 ): number => {
   let index = -1;
   let date = originalDate;
+  const todayDateString = new Date().toISOString().split("T")[0];
   while (index === -1) {
-    index = dates.indexOf(date);
+    if (todayDateString === originalDate || originalDate > todayDateString) {
+      return dates.length - 1;
+    }
     let startDate = new Date(date);
+    index = dates.indexOf(date);
     startDate.setDate(startDate.getDate() + 1);
     const newStartDateString = new Date(
       startDate.getTime() - startDate.getTimezoneOffset() * 60000

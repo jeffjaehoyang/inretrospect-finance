@@ -2,7 +2,7 @@ import { signInWithPopup } from 'firebase/auth';
 import { addDoc, collection, getDocs, query, where } from 'firebase/firestore';
 import React from 'react';
 import { FcGoogle } from 'react-icons/fc';
-import { IoMdLogOut } from 'react-icons/io';
+import { MdLogout } from 'react-icons/md';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { auth, db, provider, signOut, useFirebaseAuth } from '../../auth/FirebaseAuthContext';
@@ -43,7 +43,7 @@ export const AuthBtn = () => {
   };
   return (
     <Styled.AuthBtn onClick={handleAuth}>
-      {user ? <IoMdLogOut className="mr-2" /> : <FcGoogle className="mr-2" />}
+      {user ? <MdLogout className="mr-2" /> : <FcGoogle className="mr-2" />}
       {user ? "Logout" : "Login"}
     </Styled.AuthBtn>
   );

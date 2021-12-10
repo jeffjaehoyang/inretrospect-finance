@@ -89,15 +89,13 @@ function fuzzySearch(options, value) {
 
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.
-const root = require("path").join(__dirname, "client", "build");
-app.use(express.static(root));
-app.get("*", (req, res) => {
-  res.sendFile("index.html", { root });
-});
-
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname + "/client/build/index.html"));
-// });
+if (process.env.NODE_ENV === "production") {
+  const root = require("path").join(__dirname, "client", "build");
+  app.use(express.static(root));
+  app.get("*", (req, res) => {
+    res.sendFile("index.html", { root });
+  });
+}
 
 //log error to the console if any occurs
 client.on("error", (err) => {
