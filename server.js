@@ -7,6 +7,7 @@ const cors = require("cors");
 const yahooFinance = require("yahoo-finance2").default;
 const Fuse = require("fuse.js");
 const { allTickerSymbols } = require("./tickers");
+const path = require("path");
 const app = express();
 
 app.use(cors());
