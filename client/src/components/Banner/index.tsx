@@ -14,7 +14,7 @@ const Banner = ({ balance }: Props) => {
       <span className="text-lg">
         {user ? `Hi, ${user.displayName} 👋` : null}
       </span>
-      {balance > 0
+      {balance >= 0
         ? `You missed out on $${balance.toLocaleString("en-US", {
             minimumFractionDigits: 2,
             maximumFractionDigits: 2,

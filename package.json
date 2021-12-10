@@ -14,5 +14,6 @@
   },
   "engines": {
     "node": "16.3"
-  }
+  },
+  "homepage": "https://inretrospect-finance.herokuapp.com/"
 }
