@@ -140,7 +140,7 @@ const Dashboard: React.FC = () => {
             !isLoading ? (
               <div className="flex flex-col items-center justify-center">
                 <span className="mb-5">No records to show</span>
-                <NoData height={100} />
+                <NoData height={100} width={100} />
               </div>
             ) : (
               <Loader
