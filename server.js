@@ -12,7 +12,12 @@ const app = express();
 app.use(cors());
 
 const redisPort = 6379;
-const client = redis.createClient({ port: redisPort });
+let client;
+if (process.env.REDIS_URL) {
+  client = redis.createClient({ url: process.env.REDIS_URL });
+} else {
+  client = redis.createClient({ port: redisPort });
+}
 
 app.get("/stockData", async (req, res) => {
   const tickerSymbol = req.query.symbol;
