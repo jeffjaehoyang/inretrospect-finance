@@ -8,6 +8,7 @@ import { APIResponseFormat } from '../../interfaces';
 import Banner from '../Banner';
 import Modal from '../Modal';
 import RecordCard from '../RecordCard';
+import { ReactComponent as NoData } from './no_data.svg';
 import * as Styled from './styles';
 
 const Dashboard: React.FC = () => {
@@ -22,6 +23,7 @@ const Dashboard: React.FC = () => {
     };
   }>({});
   const [balance, setBalance] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
   const user = useFirebaseAuth();
   const updatedData: {
     [key: string]: {
@@ -49,6 +51,7 @@ const Dashboard: React.FC = () => {
 
   const fetchData = async () => {
     if (user == null) return;
+    setIsLoading(true);
     const recordsCollectionRef = collection(db, "records");
     const recordsQuery = query(
       recordsCollectionRef,
@@ -94,6 +97,7 @@ const Dashboard: React.FC = () => {
     const updatedRecordMatchingData = { ...updatedData };
     setRecordMatchingData(updatedRecordMatchingData);
     setBalance(tempBalance);
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -104,7 +108,7 @@ const Dashboard: React.FC = () => {
       <Banner balance={balance} />
       <Modal fetchData={fetchData} />
       <Styled.ContentWrapper>
-        {user && Object.keys(recordMatchingData).length > 0 ? (
+        {user && !isLoading && Object.keys(recordMatchingData).length > 0 ? (
           Object.keys(recordMatchingData)
             .sort((a, b) => +new Date(a) - +new Date(b))
             .map((startDate: string, index: number) => {
@@ -131,13 +135,22 @@ const Dashboard: React.FC = () => {
             })
         ) : (
           <Styled.EmptyWrapper>
-            <Loader
-              type="TailSpin"
-              color="#767676"
-              height={80}
-              width={80}
-              timeout={3000}
-            />
+            {user &&
+            Object.keys(recordMatchingData).length === 0 &&
+            !isLoading ? (
+              <div className="flex flex-col items-center justify-center">
+                <span className="mb-5">No records to show</span>
+                <NoData height={100} />
+              </div>
+            ) : (
+              <Loader
+                type="TailSpin"
+                color="#767676"
+                height={50}
+                width={50}
+                timeout={3000}
+              />
+            )}
           </Styled.EmptyWrapper>
         )}
       </Styled.ContentWrapper>
