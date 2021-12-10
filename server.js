@@ -28,7 +28,10 @@ app.get("/stockData", async (req, res) => {
         const stockData = await axios.get(
           `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${tickerSymbol}&outputsize=full&apikey=${process.env.ALPHAVANTAGE_API_KEY}`
         );
-        if (stockData.data["Error Message"].length > 0) {
+        if (
+          stockData.data["Error Message"] &&
+          stockData.data["Error Message"].length > 0
+        ) {
           res.status(500).send({ message: "there was an error in API call" });
         } else {
           const storableStockData = JSON.stringify(stockData.data);

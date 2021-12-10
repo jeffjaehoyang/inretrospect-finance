@@ -1,7 +1,15 @@
-import styled from "styled-components";
-import tw from "twin.macro";
+import styled from 'styled-components';
+import tw from 'twin.macro';
 
-export const BannerWrapper = styled.div`
-  ${tw`flex flex-col justify-center items-center w-full mt-4 mb-4 rounded-2xl bg-gradient-to-r from-green-100 to-green-200 text-3xl p-3 text-center`};
+interface StyledProps {
+  balance: number;
+}
+
+export const BannerWrapper = styled.div<StyledProps>`
+  ${tw`flex flex-col items-center justify-center w-full p-3 mt-4 mb-4 text-3xl text-center rounded-2xl bg-gradient-to-r`};
+  ${({ balance }) =>
+    balance >= 0
+      ? tw`from-green-100 to-green-200`
+      : tw`from-red-100 to-red-200`}
   min-height: 200px;
 `;

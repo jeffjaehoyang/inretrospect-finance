@@ -10,15 +10,22 @@ interface Props {
 const Banner = ({ balance }: Props) => {
   const user = useFirebaseAuth();
   return (
-    <Styled.BannerWrapper>
+    <Styled.BannerWrapper balance={balance}>
       <span className="text-lg">
         {user ? `Hi, ${user.displayName} 👋` : null}
-      </span>{" "}
-      You missed out on $
-      {balance.toLocaleString("en-US", {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      })}
+      </span>
+      {balance > 0
+        ? `You missed out on $${balance.toLocaleString("en-US", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          })}`
+        : `You would have been losing -$${Math.abs(balance).toLocaleString(
+            "en-US",
+            {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            }
+          )}`}
     </Styled.BannerWrapper>
   );
 };
