@@ -1,33 +1,18 @@
-import { StockData } from './interfaces';
+import { Record, StockData } from './interfaces';
 
 interface TimeSeriesData {
   [key: string]: StockData;
 }
 
 export const getStartDateMatchingData = (
-  symbol: string,
-  companyDomain: string,
-  amount: number,
-  id: string,
-  notes: string,
-  rawData: TimeSeriesData | null,
-  recordStartDate: string
+  record: Record,
+  rawData: TimeSeriesData | null
 ): {
-  symbol: string;
-  companyDomain: string;
-  amount: number;
-  id: string;
-  notes: string;
   dates: Array<string>;
   data: Array<number>;
 } => {
   if (rawData == null)
     return {
-      symbol: symbol,
-      companyDomain: companyDomain,
-      amount: amount,
-      id: id,
-      notes: notes,
       dates: [],
       data: [],
     };
@@ -35,15 +20,11 @@ export const getStartDateMatchingData = (
   const dataArray = Object.values(rawData)
     .reverse()
     .map((d) => Number(d["5. adjusted close"]));
-  let index = datesArray.indexOf(recordStartDate);
+  const startDate = getDateString(record.startDate);
+  let index = datesArray.indexOf(startDate);
   // if there is no stock data for start date that user entered, get the nearest one after it
-  if (index === -1) index = findNextAvailableDate(recordStartDate, datesArray);
+  if (index === -1) index = findNextAvailableDate(startDate, datesArray);
   return {
-    symbol: symbol,
-    companyDomain: companyDomain,
-    amount: amount,
-    id: id,
-    notes: notes,
     dates: datesArray.slice(index),
     data: dataArray.slice(index),
   };
@@ -70,13 +51,27 @@ export const getDaysDifference = (dt1: Date, dt2: Date) => {
   return Math.round(diffDays);
 };
 
+export const getMultiplier = (data: number[]): number => {
+  if (data.length === 0) return 0;
+  const multiplier = data ? data[data.length - 1] / data[0] : 0;
+  const realMultiplier = Number(multiplier.toFixed(2));
+  return realMultiplier;
+};
+
+export const getDateString = (date: Date): string => {
+  const dateString = new Date(date.getTime() - date.getTimezoneOffset() * 60000)
+    .toISOString()
+    .split("T")[0];
+  return dateString;
+};
+
 const findNextAvailableDate = (
   originalDate: string,
   dates: Array<string>
 ): number => {
   let index = -1;
   let date = originalDate;
-  const todayDateString = new Date().toISOString().split("T")[0];
+  const todayDateString = getDateString(new Date());
   while (index === -1) {
     if (todayDateString === originalDate || originalDate > todayDateString) {
       return dates.length - 1;
@@ -84,11 +79,9 @@ const findNextAvailableDate = (
     let startDate = new Date(date);
     index = dates.indexOf(date);
     startDate.setDate(startDate.getDate() + 1);
-    const newStartDateString = new Date(
-      startDate.getTime() - startDate.getTimezoneOffset() * 60000
-    )
-      .toISOString()
-      .split("T")[0];
+    const newStartDateString = getDateString(
+      new Date(startDate.getTime() - startDate.getTimezoneOffset() * 60000)
+    );
     date = newStartDateString;
   }
   return index;
