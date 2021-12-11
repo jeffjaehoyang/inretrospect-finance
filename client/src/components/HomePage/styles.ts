@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import tw from 'twin.macro';
 
 export const HomePageWrapper = styled.div`
-  ${tw`flex flex-col items-center justify-center w-full mt-4 mb-4`};
+  ${tw`flex flex-col items-center w-full mt-4 mb-4`};
   min-height: 90vh;
 `;
 
