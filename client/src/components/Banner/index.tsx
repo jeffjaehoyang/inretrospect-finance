@@ -1,4 +1,5 @@
 import React from 'react';
+import { GiPayMoney, GiReceiveMoney } from 'react-icons/gi';
 
 import { useFirebaseAuth } from '../../auth/FirebaseAuthContext';
 import * as Styled from './styles';
@@ -14,18 +15,22 @@ const Banner = ({ balance }: Props) => {
       <span className="text-lg">
         {user ? `Hi, ${user.displayName} 👋` : null}
       </span>
-      {balance >= 0
-        ? `You missed out on $${balance.toLocaleString("en-US", {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2,
-          })}`
-        : `You would have been losing -$${Math.abs(balance).toLocaleString(
-            "en-US",
-            {
+      <div className="flex flex-row items-center mt-2">
+        {balance >= 0 ? (
+          <GiReceiveMoney className="mr-2" />
+        ) : (
+          <GiPayMoney className="mr-2" />
+        )}
+        {balance >= 0
+          ? `$${balance.toLocaleString("en-US", {
               minimumFractionDigits: 2,
               maximumFractionDigits: 2,
-            }
-          )}`}
+            })}`
+          : `-$${Math.abs(balance).toLocaleString("en-US", {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })}`}
+      </div>
     </Styled.BannerWrapper>
   );
 };
