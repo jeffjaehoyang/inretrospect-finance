@@ -59,7 +59,7 @@ const RecordCard: React.FC<Props> = ({ record, fetchData }: Props) => {
           <MdLock style={{ position: "absolute", top: -2, right: 0 }} />
         )}
         <Styled.HeaderWrapper>
-          <div className="flex flex-row items-center">
+          <Styled.CompanyInfo>
             <img
               alt="logo"
               src={`https://logo.clearbit.com/${record.companyDomain}`}
@@ -71,24 +71,15 @@ const RecordCard: React.FC<Props> = ({ record, fetchData }: Props) => {
               }}
             />
             <Styled.TickerWrapper>{record.symbol}</Styled.TickerWrapper>
-          </div>
-          <div
-            className={`flex flex-row items-center rounded-full font-bold text-sm bg-${
-              !record.isRecordLocked
-                ? multiplier < 1
-                  ? "red"
-                  : "green"
-                : "warmGray"
-            }-200 pl-2 pr-2 pt-1 pb-1 float-right`}
+          </Styled.CompanyInfo>
+          <Styled.PercentageGain
+            isRecordLocked={record.isRecordLocked}
+            multiplier={multiplier}
           >
             {!record.isRecordLocked && (
-              <span
-                className={`font-bold text-${
-                  multiplier < 1 ? "red" : "green"
-                }-800 mr-1`}
-              >
+              <Styled.MultiplierText>
                 {multiplier < 1 ? "⇣" : "⇡"}
-              </span>
+              </Styled.MultiplierText>
             )}
             <span className="mr-1">
               {!record.isRecordLocked ? (
@@ -102,37 +93,37 @@ const RecordCard: React.FC<Props> = ({ record, fetchData }: Props) => {
               )}
             </span>
             %
-          </div>
+          </Styled.PercentageGain>
         </Styled.HeaderWrapper>
         <Styled.ResultsWrapper>
-          <div className="text-sm font-bold rounded-full">
+          <Styled.ResultsPill>
             ${record.amount?.toLocaleString("en-US")}
-          </div>
+          </Styled.ResultsPill>
           <div className="ml-1 mr-1">→</div>
-          <div className="text-sm font-bold rounded-full">
+          <Styled.ResultsPill>
             {!record.isRecordLocked ? (
               `$${currentAmount.toLocaleString("en-US")}`
             ) : (
               <FaQuestion />
             )}
-          </div>
+          </Styled.ResultsPill>
         </Styled.ResultsWrapper>
         <Styled.TimeWrapper>
           {!record.isRecordLocked ? (
-            <div className="flex flex-row items-center pl-1 pr-1 bg-blue-100 bg-opacity-50 rounded-full">
+            <Styled.StartDate>
               <FcCalendar className="mr-1 text-lg" />
               {record.startDate.toLocaleDateString("en-US", {
                 year: "numeric",
                 month: "2-digit",
                 day: "2-digit",
               })}
-            </div>
+            </Styled.StartDate>
           ) : (
-            <div className="flex flex-row items-center pl-1 pr-1 rounded-full bg-warmGray-200">
+            <Styled.TimeToUnlock>
               <RiTimerLine className="mr-1" />
               {7 - getDaysDifference(new Date(), record.startDate)} days to
               unlock
-            </div>
+            </Styled.TimeToUnlock>
           )}
         </Styled.TimeWrapper>
         <Styled.LastRow>
