@@ -18,6 +18,7 @@ const Dashboard: React.FC = () => {
       companyDomain: string;
       amount: number;
       id: string;
+      notes: string;
       dates: Array<string>;
       data: Array<number> | null;
     };
@@ -31,6 +32,7 @@ const Dashboard: React.FC = () => {
       companyDomain: string;
       amount: number;
       id: string;
+      notes: string;
       dates: Array<string>;
       data: Array<number> | null;
     };
@@ -68,9 +70,11 @@ const Dashboard: React.FC = () => {
         )
           .toISOString()
           .split("T")[0];
-        const shouldShowData: boolean =
-          getWeeksDifference(new Date(startDate), new Date()) >= 1;
-        if (shouldShowData) {
+        const isRecordLocked: boolean =
+          getWeeksDifference(new Date(startDate), new Date()) < 1;
+
+        const hashKey = `${record.symbol}-${startDate}`;
+        if (!isRecordLocked) {
           try {
             const response = await api<APIResponseFormat>(
               `/stockData?symbol=${record.symbol}`
@@ -80,12 +84,13 @@ const Dashboard: React.FC = () => {
               record.companyDomain,
               record.amount,
               record.id,
+              record.notes,
               response["Time Series (Daily)"],
               startDate
             );
-            updatedData[startDate] = stockDataMatchingDates;
-            const amount = updatedData[startDate].amount;
-            const data = updatedData[startDate].data;
+            updatedData[hashKey] = stockDataMatchingDates;
+            const amount = updatedData[hashKey].amount;
+            const data = updatedData[hashKey].data;
             const multiplier = data ? data[data.length - 1] / data[0] : 0;
             const realMultiplier = Number(multiplier.toFixed(2));
             const currentAmount = amount * realMultiplier;
@@ -100,10 +105,11 @@ const Dashboard: React.FC = () => {
             record.companyDomain,
             record.amount,
             record.id,
+            record.notes,
             null,
             startDate
           );
-          updatedData[startDate] = stockDataMatchingDates;
+          updatedData[hashKey] = stockDataMatchingDates;
         }
       }
     );
@@ -141,6 +147,7 @@ const Dashboard: React.FC = () => {
                   symbol={recordMatchingData[startDate].symbol}
                   data={data}
                   id={recordMatchingData[startDate].id}
+                  notes={recordMatchingData[startDate].notes}
                   dates={recordMatchingData[startDate].dates}
                   currentAmount={currentAmount}
                   fetchData={fetchData}

@@ -9,6 +9,7 @@ export const getStartDateMatchingData = (
   companyDomain: string,
   amount: number,
   id: string,
+  notes: string,
   rawData: TimeSeriesData | null,
   recordStartDate: string
 ): {
@@ -16,6 +17,7 @@ export const getStartDateMatchingData = (
   companyDomain: string;
   amount: number;
   id: string;
+  notes: string;
   dates: Array<string>;
   data: Array<number>;
 } => {
@@ -25,6 +27,7 @@ export const getStartDateMatchingData = (
       companyDomain: companyDomain,
       amount: amount,
       id: id,
+      notes: notes,
       dates: [],
       data: [],
     };
@@ -40,6 +43,7 @@ export const getStartDateMatchingData = (
     companyDomain: companyDomain,
     amount: amount,
     id: id,
+    notes: notes,
     dates: datesArray.slice(index),
     data: dataArray.slice(index),
   };

@@ -2,13 +2,13 @@ import styled from 'styled-components';
 import tw from 'twin.macro';
 
 interface StyledProps {
-  shouldShowData: boolean;
+  isRecordLocked: boolean;
 }
 
 export const CardWrapper = styled.div<StyledProps>`
   ${tw`relative flex flex-col max-w-xs p-3 transition duration-300 ease-in-out bg-white border-2 border-gray-100 shadow-sm rounded-3xl hover:shadow-lg`};
-  ${({ shouldShowData }) =>
-    shouldShowData ? tw`cursor-pointer` : tw`cursor-not-allowed`};
+  ${({ isRecordLocked }) =>
+    !isRecordLocked ? tw`cursor-pointer` : tw`cursor-not-allowed`};
   width: 100%;
   min-height: 130px;
 `;
@@ -35,6 +35,18 @@ export const ResultsWrapper = styled.div`
   background-position: 0 80%;
 `;
 
+export const TimeWrapper = styled.div`
+  ${tw`flex flex-row items-center justify-between mt-2 mb-2 text-sm font-semibold`}
+`;
+
+export const NotesWrapper = styled.div`
+  ${tw`flex flex-row items-center p-1 text-sm rounded-full bg-yellow-50`}
+`;
+
 export const DeleteButton = styled.button`
   ${tw`text-2xl text-white transition duration-300 ease-in-out bg-red-600 rounded-full sm:opacity-0 sm:group-hover:opacity-100`}
+`;
+
+export const LastRow = styled.div`
+  ${tw`flex flex-row items-center justify-between`}
 `;

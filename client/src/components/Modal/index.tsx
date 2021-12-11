@@ -1,5 +1,6 @@
 import { addDoc, collection, updateDoc } from 'firebase/firestore';
 import React, { useState } from 'react';
+import { MdAddTask } from 'react-icons/md';
 import Loader from 'react-loader-spinner';
 
 import { db, useFirebaseAuth } from '../../auth/FirebaseAuthContext';
@@ -60,6 +61,7 @@ const Modal = ({ fetchData }: Props) => {
           setShowModal(true);
         }}
       >
+        <MdAddTask className="mr-1" />
         Add Record
       </Styled.AddRecordButtonWrapper>
       {showModal ? (
