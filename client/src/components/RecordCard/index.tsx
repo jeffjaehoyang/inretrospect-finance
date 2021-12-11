@@ -19,7 +19,7 @@ interface Props {
   fetchData: () => Promise<void>;
 }
 
-const RecordCard = ({ record, fetchData }: Props) => {
+const RecordCard: React.FC<Props> = ({ record, fetchData }: Props) => {
   const [showModal, setShowModal] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const multiplier = getMultiplier(record.marketData?.data || []);

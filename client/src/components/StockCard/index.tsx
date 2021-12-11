@@ -10,7 +10,12 @@ interface Props {
   dates: Array<string> | null | undefined;
 }
 
-const StockCard = ({ startDate, symbol, data, dates }: Props) => {
+const StockCard: React.FC<Props> = ({
+  startDate,
+  symbol,
+  data,
+  dates,
+}: Props) => {
   const options = {
     xaxis: {
       categories: dates,

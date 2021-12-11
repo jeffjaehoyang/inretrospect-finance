@@ -13,7 +13,7 @@ interface Props {
 }
 
 // template credit: https://www.creative-tim.com/learning-lab/tailwind-starter-kit/documentation/react/modals/small
-const StockModal = ({
+const StockModal: React.FC<Props> = ({
   startDate,
   symbol,
   data,

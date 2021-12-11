@@ -9,7 +9,7 @@ interface Props {
   setNotes: Dispatch<SetStateAction<string>>;
 }
 
-const CreateRecordForm = ({
+const CreateRecordForm: React.FC<Props> = ({
   setCompany,
   setStartDate,
   setAmount,

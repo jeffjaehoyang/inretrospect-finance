@@ -8,14 +8,14 @@ interface Props {
   balance: number;
 }
 
-const Banner = ({ balance }: Props) => {
+const Banner: React.FC<Props> = ({ balance }: Props) => {
   const user = useFirebaseAuth();
   return (
     <Styled.BannerWrapper balance={balance}>
       <span className="text-lg">
         {user ? `Hi, ${user.displayName} 👋` : null}
       </span>
-      <div className="flex flex-row items-center mt-2">
+      <Styled.BalanceWrapper>
         {balance >= 0 ? (
           <GiReceiveMoney className="mr-2" />
         ) : (
@@ -30,7 +30,7 @@ const Banner = ({ balance }: Props) => {
               minimumFractionDigits: 2,
               maximumFractionDigits: 2,
             })}`}
-      </div>
+      </Styled.BalanceWrapper>
     </Styled.BannerWrapper>
   );
 };

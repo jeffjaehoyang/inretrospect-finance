@@ -13,3 +13,7 @@ export const BannerWrapper = styled.div<StyledProps>`
       : tw`from-red-100 to-red-200`}
   min-height: 200px;
 `;
+
+export const BalanceWrapper = styled.div`
+  ${tw`flex flex-row items-center mt-2`}
+`;

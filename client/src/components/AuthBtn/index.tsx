@@ -8,7 +8,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { auth, db, provider, signOut, useFirebaseAuth } from '../../auth/FirebaseAuthContext';
 import * as Styled from './styles';
 
-export const AuthBtn = () => {
+export const AuthBtn: React.FC = () => {
   const user = useFirebaseAuth();
   const usersCollectionRef = collection(db, "users");
   const navigate = useNavigate();

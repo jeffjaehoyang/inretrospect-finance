@@ -12,7 +12,7 @@ interface Props {
 }
 
 // template credit: https://www.creative-tim.com/learning-lab/tailwind-starter-kit/documentation/react/modals/small
-const Modal = ({ fetchData }: Props) => {
+const Modal: React.FC<Props> = ({ fetchData }: Props) => {
   const [showModal, setShowModal] = useState(false);
   const [company, setCompany] = useState<{
     label: string;
