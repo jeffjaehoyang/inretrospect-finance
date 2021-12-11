@@ -137,11 +137,12 @@ const RecordCard = ({
           {!isRecordLocked ? (
             <div className="flex flex-row items-center pl-1 pr-1 bg-blue-100 bg-opacity-50 rounded-full">
               <FcCalendar className="mr-1 text-lg" />
-              {new Date(startDate).toLocaleDateString("en-US", {
+              {startDate}
+              {/* {new Date(startDate).toLocaleDateString("en-US", {
                 year: "numeric",
                 month: "2-digit",
                 day: "2-digit",
-              })}
+              })} */}
             </div>
           ) : (
             <div className="flex flex-row items-center pl-1 pr-1 rounded-full bg-warmGray-200">

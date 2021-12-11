@@ -130,10 +130,15 @@ const Dashboard: React.FC = () => {
       <Styled.ContentWrapper>
         {user && !isLoading && Object.keys(recordMatchingData).length > 0 ? (
           Object.keys(recordMatchingData)
-            .sort((a, b) => +new Date(a) - +new Date(b))
-            .map((startDate: string, index: number) => {
-              const amount = recordMatchingData[startDate].amount;
-              const data = recordMatchingData[startDate].data;
+            .sort(
+              (a, b) =>
+                +new Date(a.split("-").slice(1).join("-")) -
+                +new Date(b.split("-").slice(1).join("-"))
+            )
+            .map((hashKey: string, index: number) => {
+              const startDate = hashKey.split("-").slice(1).join("-");
+              const amount = recordMatchingData[hashKey].amount;
+              const data = recordMatchingData[hashKey].data;
               const multiplier = data ? data[data.length - 1] / data[0] : 0;
               const realMultiplier = Number(multiplier.toFixed(2));
               const currentAmount = amount * realMultiplier;
@@ -141,14 +146,14 @@ const Dashboard: React.FC = () => {
                 <RecordCard
                   key={index}
                   startDate={startDate}
-                  companyDomain={recordMatchingData[startDate].companyDomain}
+                  companyDomain={recordMatchingData[hashKey].companyDomain}
                   amount={amount}
                   multiplier={realMultiplier}
-                  symbol={recordMatchingData[startDate].symbol}
+                  symbol={recordMatchingData[hashKey].symbol}
                   data={data}
-                  id={recordMatchingData[startDate].id}
-                  notes={recordMatchingData[startDate].notes}
-                  dates={recordMatchingData[startDate].dates}
+                  id={recordMatchingData[hashKey].id}
+                  notes={recordMatchingData[hashKey].notes}
+                  dates={recordMatchingData[hashKey].dates}
                   currentAmount={currentAmount}
                   fetchData={fetchData}
                 />
