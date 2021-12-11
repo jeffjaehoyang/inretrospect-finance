@@ -7,7 +7,7 @@ interface Props {
   children: JSX.Element;
 }
 
-const ProtectedRoute = ({ children }: Props) => {
+const ProtectedRoute: React.FC<Props> = ({ children }: Props) => {
   const user = useFirebaseAuth();
   const location = useLocation();
 

@@ -6,7 +6,7 @@ interface Props {
   children: JSX.Element;
 }
 
-const Container = ({ children }: Props) => (
+const Container: React.FC<Props> = ({ children }: Props) => (
   <Styled.FullHeightContainer>{children}</Styled.FullHeightContainer>
 );
 

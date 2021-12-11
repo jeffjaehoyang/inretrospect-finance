@@ -6,7 +6,7 @@ interface Props {
   setCompany: Dispatch<SetStateAction<{ label: string; value: string } | null>>;
 }
 
-const AsyncSearchBar = ({ setCompany }: Props) => {
+const AsyncSearchBar: React.FC<Props> = ({ setCompany }: Props) => {
   //set default query terms
   const [query, setQuery] = useState("");
 

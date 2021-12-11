@@ -97,10 +97,10 @@ const Dashboard: React.FC = () => {
         ) : (
           <Styled.EmptyWrapper>
             {user && recordsList.length === 0 && !isLoading ? (
-              <div className="flex flex-col items-center justify-center">
+              <Styled.EmptyContent>
                 <span className="mb-5">No records to show</span>
                 <NoData height={100} width={100} />
-              </div>
+              </Styled.EmptyContent>
             ) : (
               <Loader
                 type="TailSpin"
