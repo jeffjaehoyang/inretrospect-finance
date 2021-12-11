@@ -3,6 +3,7 @@ import tw from 'twin.macro';
 
 interface StyledProps {
   isRecordLocked?: boolean;
+  multiplier?: number;
 }
 
 export const CardWrapper = styled.div<StyledProps>`
@@ -16,6 +17,26 @@ export const CardWrapper = styled.div<StyledProps>`
 export const HeaderWrapper = styled.div`
   ${tw`flex flex-row items-center justify-between mb-2`}
   height: 40%;
+`;
+
+export const CompanyInfo = styled.div`
+  ${tw`flex flex-row items-center`}
+`;
+
+export const PercentageGain = styled.div<StyledProps>`
+  ${tw`flex flex-row items-center float-right pt-1 pb-1 pl-2 pr-2 text-sm font-bold rounded-full`}
+  ${({ isRecordLocked, multiplier }) =>
+    !isRecordLocked
+      ? multiplier && multiplier < 1
+        ? tw`bg-red-200`
+        : tw`bg-green-200`
+      : tw`bg-gray-200`}
+`;
+
+export const MultiplierText = styled.span<StyledProps>`
+  ${tw`mr-1 font-bold`}
+  ${({ multiplier }) =>
+    multiplier && multiplier < 1 ? tw`text-red-800` : tw`text-green-800`};
 `;
 
 export const TickerWrapper = styled.div`
@@ -35,8 +56,20 @@ export const ResultsWrapper = styled.div`
   background-position: 0 80%;
 `;
 
+export const ResultsPill = styled.div`
+  ${tw`text-sm font-bold rounded-full`}
+`;
+
 export const TimeWrapper = styled.div`
   ${tw`flex flex-row items-center justify-between mt-2 mb-2 text-sm font-semibold`}
+`;
+
+export const StartDate = styled.div`
+  ${tw`flex flex-row items-center pl-1 pr-1 bg-blue-100 bg-opacity-50 rounded-full`}
+`;
+
+export const TimeToUnlock = styled.div`
+  ${tw`flex flex-row items-center pl-1 pr-1 bg-gray-100 rounded-full`}
 `;
 
 export const NotesWrapper = styled.div`
