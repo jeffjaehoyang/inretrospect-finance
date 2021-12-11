@@ -4,11 +4,11 @@ import Loader from 'react-loader-spinner';
 
 import { db, useFirebaseAuth } from '../../auth/FirebaseAuthContext';
 import { getStartDateMatchingData, getWeeksDifference } from '../../dataProcessing';
+import { ReactComponent as NoData } from '../../images/no_data.svg';
 import { APIResponseFormat } from '../../interfaces';
 import Banner from '../Banner';
 import Modal from '../Modal';
 import RecordCard from '../RecordCard';
-import { ReactComponent as NoData } from './no_data.svg';
 import * as Styled from './styles';
 
 const Dashboard: React.FC = () => {
@@ -123,6 +123,7 @@ const Dashboard: React.FC = () => {
   useEffect(() => {
     fetchData();
   }, []);
+
   return (
     <Styled.DashboardWrapper>
       <Banner balance={balance} />
