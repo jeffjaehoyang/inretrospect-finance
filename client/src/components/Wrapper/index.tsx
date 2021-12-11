@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import React from 'react';
 
+import Footer from '../Footer';
 import Navbar from '../Navbar';
 import * as Styled from './styles';
 
@@ -22,6 +23,7 @@ const Wrapper: React.FC<Props> = ({ children }: Props) => {
           >
             {children}
           </motion.div>
+          <Footer />
         </Styled.Layout>
       </AnimatePresence>
     </>

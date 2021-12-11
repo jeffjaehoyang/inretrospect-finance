@@ -7,7 +7,7 @@ interface Props {
   startDate: string | undefined;
   symbol: string | undefined;
   data: Array<number> | null | undefined;
-  dates: Array<string> | undefined;
+  dates: Array<string> | null | undefined;
 }
 
 const StockCard = ({ startDate, symbol, data, dates }: Props) => {

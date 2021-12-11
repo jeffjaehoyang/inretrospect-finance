@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Loader from 'react-loader-spinner';
 
 import { db, useFirebaseAuth } from '../../auth/FirebaseAuthContext';
-import { getStartDateMatchingData } from '../../dataProcessing';
+import { getStartDateMatchingData, getWeeksDifference } from '../../dataProcessing';
 import { APIResponseFormat } from '../../interfaces';
 import Banner from '../Banner';
 import Modal from '../Modal';
@@ -68,28 +68,42 @@ const Dashboard: React.FC = () => {
         )
           .toISOString()
           .split("T")[0];
-        try {
-          const response = await api<APIResponseFormat>(
-            `/stockData?symbol=${record.symbol}`
-          );
+        const shouldShowData: boolean =
+          getWeeksDifference(new Date(startDate), new Date()) >= 1;
+        if (shouldShowData) {
+          try {
+            const response = await api<APIResponseFormat>(
+              `/stockData?symbol=${record.symbol}`
+            );
+            let stockDataMatchingDates = getStartDateMatchingData(
+              record.symbol,
+              record.companyDomain,
+              record.amount,
+              record.id,
+              response["Time Series (Daily)"],
+              startDate
+            );
+            updatedData[startDate] = stockDataMatchingDates;
+            const amount = updatedData[startDate].amount;
+            const data = updatedData[startDate].data;
+            const multiplier = data ? data[data.length - 1] / data[0] : 0;
+            const realMultiplier = Number(multiplier.toFixed(2));
+            const currentAmount = amount * realMultiplier;
+            const difference = currentAmount - amount;
+            tempBalance += difference;
+          } catch (e) {
+            console.log(e);
+          }
+        } else {
           let stockDataMatchingDates = getStartDateMatchingData(
             record.symbol,
             record.companyDomain,
             record.amount,
             record.id,
-            response["Time Series (Daily)"],
+            null,
             startDate
           );
           updatedData[startDate] = stockDataMatchingDates;
-          const amount = updatedData[startDate].amount;
-          const data = updatedData[startDate].data;
-          const multiplier = data ? data[data.length - 1] / data[0] : 0;
-          const realMultiplier = Number(multiplier.toFixed(2));
-          const currentAmount = amount * realMultiplier;
-          const difference = currentAmount - amount;
-          tempBalance += difference;
-        } catch (e) {
-          console.log(e);
         }
       }
     );

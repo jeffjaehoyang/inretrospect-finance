@@ -9,7 +9,7 @@ export const getStartDateMatchingData = (
   companyDomain: string,
   amount: number,
   id: string,
-  rawData: TimeSeriesData,
+  rawData: TimeSeriesData | null,
   recordStartDate: string
 ): {
   symbol: string;
@@ -19,6 +19,15 @@ export const getStartDateMatchingData = (
   dates: Array<string>;
   data: Array<number>;
 } => {
+  if (rawData == null)
+    return {
+      symbol: symbol,
+      companyDomain: companyDomain,
+      amount: amount,
+      id: id,
+      dates: [],
+      data: [],
+    };
   const datesArray = Object.keys(rawData).reverse();
   const dataArray = Object.values(rawData)
     .reverse()
@@ -45,6 +54,16 @@ export const getWeeksDifference = (dt1: Date, dt2: Date) => {
   const difference_ms = Math.abs(date1_ms - date2_ms);
   // Convert back to weeks and return hole weeks
   return Math.floor(difference_ms / ONE_WEEK);
+};
+
+export const getDaysDifference = (dt1: Date, dt2: Date) => {
+  // Convert both dates to milliseconds
+  const date1_ms = dt1.getTime();
+  const date2_ms = dt2.getTime();
+  // To calculate the no. of days between two dates
+  const diff_ms = Math.abs(date1_ms - date2_ms);
+  const diffDays = diff_ms / (1000 * 3600 * 24);
+  return Math.round(diffDays);
 };
 
 const findNextAvailableDate = (

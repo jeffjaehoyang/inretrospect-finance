@@ -2,12 +2,13 @@ import styled from 'styled-components';
 import tw from 'twin.macro';
 
 export const DashboardWrapper = styled.div`
-  ${tw`flex flex-col items-center justify-center w-full pb-5`};
+  ${tw`flex flex-col items-center w-full pb-5`};
+  min-height: 90vh;
 `;
 
 export const ContentWrapper = styled.div`
   ${tw`flex flex-col items-center justify-center w-full mt-2 sm:flex-row sm:flex-wrap sm:justify-between sm:items-stretch`};
-  gap: 10px 30px;
+  gap: 15px 30px;
 `;
 
 export const EmptyWrapper = styled.div`
