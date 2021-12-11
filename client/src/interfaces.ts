@@ -1,10 +1,18 @@
 export interface Record {
   timestamp: string;
-  startDate: string;
+  id: string;
+  uid: string;
+  startDate: Date;
   symbol: string;
-  company: string;
+  companyName: string;
+  companyDomain: string;
   amount: number;
   notes: string;
+  isRecordLocked?: boolean;
+  marketData?: {
+    dates: Array<string>;
+    data: Array<number>;
+  };
 }
 
 export interface StockData {

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import tw from 'twin.macro';
 
 interface StyledProps {
-  isRecordLocked: boolean;
+  isRecordLocked?: boolean;
 }
 
 export const CardWrapper = styled.div<StyledProps>`
