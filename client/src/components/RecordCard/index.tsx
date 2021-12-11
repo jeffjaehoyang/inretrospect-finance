@@ -2,6 +2,7 @@ import { deleteDoc, doc } from 'firebase/firestore';
 import React, { useState } from 'react';
 import { BiTimer } from 'react-icons/bi';
 import { FaQuestion } from 'react-icons/fa';
+import { FcCalendar } from 'react-icons/fc';
 import { MdLock } from 'react-icons/md';
 import { RiTimerLine } from 'react-icons/ri';
 import { TiDelete } from 'react-icons/ti';
@@ -132,13 +133,17 @@ const RecordCard = ({
         </Styled.ResultsWrapper>
         <div className="flex flex-row items-center justify-between mt-2 text-sm font-semibold">
           {shouldShowData ? (
-            <div className="flex flex-row items-center pl-1 pr-1 rounded-full bg-violet-100">
-              <BiTimer className="mr-1 text-lg" />
-              {startDate}
+            <div className="flex flex-row items-center pl-1 pr-1 bg-blue-100 bg-opacity-50 rounded-full">
+              <FcCalendar className="mr-1 text-lg" />
+              {new Date(startDate).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit",
+              })}
             </div>
           ) : (
             <div className="flex flex-row items-center pl-1 pr-1 rounded-full bg-warmGray-200">
-              <RiTimerLine className="mr-1 text-lg" />
+              <RiTimerLine className="mr-1" />
               {7 - getDaysDifference(new Date(), new Date(startDate))} days to
               unlock
             </div>

@@ -43,6 +43,9 @@ const CreateRecordForm = ({
             Company
           </label>
           <AsyncSearchBar setCompany={setCompany} />
+          <span className="text-xs font-bold text-blue-800">
+            Search by company ticker symbol
+          </span>
         </div>
         <div className="mb-4">
           <label className="block mb-2 text-sm font-bold text-gray-700">
@@ -59,7 +62,7 @@ const CreateRecordForm = ({
         </div>
         <div className="mb-4">
           <label className="block mb-2 text-sm font-bold text-gray-700">
-            Investment Amount in USD
+            Investment Amount (USD)
           </label>
           <input
             className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
