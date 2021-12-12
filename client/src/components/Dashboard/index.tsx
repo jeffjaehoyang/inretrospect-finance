@@ -91,7 +91,12 @@ const Dashboard: React.FC = () => {
             .sort((a: Record, b: Record) => +a.startDate - +b.startDate)
             .map((record: Record, index: number) => {
               return (
-                <RecordCard key={index} record={record} fetchData={fetchData} />
+                <RecordCard
+                  key={index}
+                  record={record}
+                  recordsList={recordsList}
+                  setRecordsList={setRecordsList}
+                />
               );
             })
         ) : (

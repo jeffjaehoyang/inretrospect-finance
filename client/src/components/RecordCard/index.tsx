@@ -1,5 +1,5 @@
 import { deleteDoc, doc } from 'firebase/firestore';
-import React, { useState } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import { BsFillChatQuoteFill } from 'react-icons/bs';
 import { FaQuestion } from 'react-icons/fa';
 import { FcCalendar } from 'react-icons/fc';
@@ -16,10 +16,15 @@ import * as Styled from './styles';
 
 interface Props {
   record: Record;
-  fetchData: () => Promise<void>;
+  recordsList: Record[];
+  setRecordsList: Dispatch<SetStateAction<Record[]>>;
 }
 
-const RecordCard: React.FC<Props> = ({ record, fetchData }: Props) => {
+const RecordCard: React.FC<Props> = ({
+  record,
+  recordsList,
+  setRecordsList,
+}: Props) => {
   const [showModal, setShowModal] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const multiplier = getMultiplier(record.marketData?.data || []);
@@ -29,7 +34,8 @@ const RecordCard: React.FC<Props> = ({ record, fetchData }: Props) => {
     if (record.id == null) return; // id needs to be there to delete
     setIsDeleting(true);
     await deleteDoc(doc(db, "records", record.id));
-    await fetchData();
+    const newRecordsList = recordsList.filter((doc) => doc.id !== record.id);
+    setRecordsList(newRecordsList);
     setIsDeleting(false);
   };
 
