@@ -6,7 +6,7 @@ const redis = require("redis");
 const cors = require("cors");
 const yahooFinance = require("yahoo-finance2").default;
 const Fuse = require("fuse.js");
-const sslRedirect = require("heroku-ssl-redirect");
+const sslRedirect = require("heroku-ssl-redirect").default;
 const { allTickerSymbols } = require("./tickers");
 const app = express();
 
