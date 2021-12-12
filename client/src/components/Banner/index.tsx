@@ -1,5 +1,5 @@
 import React from 'react';
-import { GiPayMoney, GiReceiveMoney } from 'react-icons/gi';
+import { GiMoneyStack } from 'react-icons/gi';
 
 import { useFirebaseAuth } from '../../auth/FirebaseAuthContext';
 import * as Styled from './styles';
@@ -16,11 +16,7 @@ const Banner: React.FC<Props> = ({ balance }: Props) => {
         {user ? `Hi, ${user.displayName} 👋` : null}
       </span>
       <Styled.BalanceWrapper>
-        {balance >= 0 ? (
-          <GiReceiveMoney className="mr-2" />
-        ) : (
-          <GiPayMoney className="mr-2" />
-        )}
+        <GiMoneyStack className="mr-3 text-4xl" />
         {balance >= 0
           ? `$${balance.toLocaleString("en-US", {
               minimumFractionDigits: 2,
