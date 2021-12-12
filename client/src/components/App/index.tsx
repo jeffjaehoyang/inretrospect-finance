@@ -5,6 +5,7 @@ import { FirebaseAuthProvider } from '../../auth/FirebaseAuthContext';
 import Container from '../Container';
 import Dashboard from '../Dashboard';
 import HomePage from '../HomePage';
+import NotFoundPage from '../NotFoundPage';
 import ProtectedRoute from '../ProtectedRoute';
 import UnprotectedRoute from '../UnprotectedRoute';
 import Wrapper from '../Wrapper';
@@ -16,6 +17,7 @@ const App: React.FC = () => {
         <Container>
           <Wrapper>
             <Routes>
+              <Route path="*" element={<NotFoundPage />} />
               <Route
                 path="/"
                 element={

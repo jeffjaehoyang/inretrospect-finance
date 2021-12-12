@@ -3,13 +3,55 @@ const admin = require("firebase-admin");
 admin.initializeApp();
 const db = admin.firestore();
 
+const MailGen = require("mailgen");
+const sgMail = require("@sendgrid/mail");
+
 // Business logic for named tasks. Function name should match worker field on task document.
 const workers = {
   sendEmail: (options) => sendEmail(options),
 };
 
-const sendEmail = (options) => {
-  return;
+const sendEmail = async (options) => {
+  const mailGenerator = new MailGen({
+    theme: "cerberus",
+    product: {
+      name: "inretrospect.finance",
+      link: "https://www.inretrospect.finance",
+      // logo: your app logo url
+    },
+  });
+
+  const email = {
+    body: {
+      name: options.displayName,
+      intro: "Your records were unlocked!",
+      action: {
+        instructions:
+          "Click the link below to check out how your investments would have been doing by now - they are unlocked!",
+        button: {
+          color: "#1f2937",
+          text: "Go Check",
+          link: "https://www.inretrospect.finance/dashboard",
+        },
+      },
+    },
+  };
+
+  const emailTemplate = mailGenerator.generate(email);
+  const msg = {
+    to: options.emailTo,
+    from: "jho.yang96@gmail.com",
+    subject: "Your records were unlocked! Time to look back in retrospect.",
+    html: emailTemplate,
+  };
+  require("fs").writeFileSync("preview.html", emailTemplate, "utf8");
+
+  try {
+    sgMail.setApiKey(functions.config().sendGridAPI.key);
+    await sgMail.send(msg);
+  } catch (error) {
+    throw new Error(error.message);
+  }
 };
 
 exports.taskRunner = functions

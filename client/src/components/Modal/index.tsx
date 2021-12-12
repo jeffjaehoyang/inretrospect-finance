@@ -61,6 +61,7 @@ const Modal: React.FC<Props> = ({ fetchData }: Props) => {
           uid: user.uid,
           recordId: newRecordRef.id,
           symbol: company.value,
+          dispayName: user.displayName,
           companyName: company.label,
           companyDomain: companyDomain,
           notes: notes,
