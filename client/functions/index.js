@@ -13,8 +13,8 @@ const sendEmail = (options) => {
 };
 
 exports.taskRunner = functions
-  .runWith({ memory: "2GB" })
-  .pubsub.schedule("* * * * *")
+  .runWith({ memory: "1GB" })
+  .pubsub.schedule("every 24 hours")
   .onRun(async (context) => {
     // Consistent timestamp
     const now = admin.firestore.Timestamp.now();
