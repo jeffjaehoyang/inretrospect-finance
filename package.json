@@ -5,6 +5,7 @@
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "fuse.js": "^6.4.6",
+    "heroku-ssl-redirect": "^0.1.1",
     "redis": "^3.1.2",
     "yahoo-finance2": "^2.0.1"
   },
