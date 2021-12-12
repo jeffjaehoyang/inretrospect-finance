@@ -6,7 +6,7 @@ import * as Styled from './styles';
 const Navbar: React.FC = () => {
   return (
     <Styled.NavbarWrapper>
-      <Styled.Logo>inretrospect.finance</Styled.Logo>
+      <Styled.Logo to="/dashboard">inretrospect.finance</Styled.Logo>
       <AuthBtn />
     </Styled.NavbarWrapper>
   );

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import tw from 'twin.macro';
 
@@ -5,8 +6,8 @@ export const NavbarWrapper = styled.div`
   ${tw`flex flex-row items-center justify-between w-full pt-8 pb-3`};
 `;
 
-export const Logo = styled.div`
-  ${tw`text-base font-bold text-gray-700 uppercase cursor-default`};
+export const Logo = styled(Link)`
+  ${tw`text-base font-bold text-gray-700 uppercase cursor-pointer`};
 `;
 
 export const AuthBtn = styled.button`
