@@ -4,6 +4,7 @@ import { MdAddTask } from 'react-icons/md';
 import Loader from 'react-loader-spinner';
 
 import { db, useFirebaseAuth } from '../../auth/FirebaseAuthContext';
+import { getWeeksDifference } from '../../dataProcessing';
 import CreateRecordForm from '../CreateRecordForm';
 import * as Styled from './styles';
 
@@ -49,6 +50,26 @@ const Modal: React.FC<Props> = ({ fetchData }: Props) => {
     await updateDoc(newRecordRef, {
       id: newRecordRef.id,
     });
+    if (getWeeksDifference(startDate, new Date()) < 1) {
+      // create an EmailTask scheduled to run after a week
+      let weekFromToday = new Date();
+      weekFromToday.setDate(new Date().getDate() + 7);
+      addDoc(collection(db, "emailTasks"), {
+        isExecuted: false,
+        options: {
+          emailTo: user.email,
+          uid: user.uid,
+          recordId: newRecordRef.id,
+          symbol: company.value,
+          companyName: company.label,
+          companyDomain: companyDomain,
+          notes: notes,
+          amount: amount,
+        },
+        performAt: weekFromToday,
+        worker: "sendEmail",
+      });
+    }
     await fetchData();
     setShowModal(false);
     setIsSaving(false);

@@ -13,6 +13,7 @@
 # client
 # dependencies
 /client/node_modules
+/functions/node_modules
 
 # testing
 /client/coverage
