@@ -47,7 +47,7 @@ const sendEmail = async (options) => {
   require("fs").writeFileSync("preview.html", emailTemplate, "utf8");
 
   try {
-    sgMail.setApiKey(functions.config().sendGridAPI.key);
+    sgMail.setApiKey(functions.config().sendgridapi.key);
     await sgMail.send(msg);
   } catch (error) {
     throw new Error(error.message);
