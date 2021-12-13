@@ -21,6 +21,9 @@ const Modal: React.FC<Props> = ({ fetchData }: Props) => {
   } | null>(null);
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [amount, setAmount] = useState<number | null>(null);
+  const [isInvestmentMade, setIsInvestmentMade] = useState<boolean | null>(
+    null
+  );
   const [notes, setNotes] = useState<string>("");
   const [isSaving, setIsSaving] = useState(false);
   const user = useFirebaseAuth();
@@ -45,6 +48,7 @@ const Modal: React.FC<Props> = ({ fetchData }: Props) => {
       startDate: startDate,
       amount: amount,
       notes: notes,
+      isInvestmentMade: isInvestmentMade,
       uid: user.uid,
     });
     await updateDoc(newRecordRef, {
@@ -66,6 +70,7 @@ const Modal: React.FC<Props> = ({ fetchData }: Props) => {
           companyDomain: companyDomain,
           notes: notes,
           amount: amount,
+          isInvestmentMade: isInvestmentMade,
         },
         performAt: weekFromToday,
         worker: "sendEmail",
@@ -81,6 +86,7 @@ const Modal: React.FC<Props> = ({ fetchData }: Props) => {
     setCompany(null);
     setStartDate(null);
     setAmount(null);
+    setIsInvestmentMade(null);
     setNotes("");
   };
 
@@ -114,6 +120,7 @@ const Modal: React.FC<Props> = ({ fetchData }: Props) => {
                     setCompany={setCompany}
                     setStartDate={setStartDate}
                     setAmount={setAmount}
+                    setIsInvestmentMade={setIsInvestmentMade}
                     setNotes={setNotes}
                   />
                 </Styled.FormWrapper>

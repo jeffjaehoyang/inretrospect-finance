@@ -8,6 +8,7 @@ export interface Record {
   companyDomain: string;
   amount: number;
   notes: string;
+  isInvestmentMade: boolean;
   isRecordLocked?: boolean;
   marketData?: {
     dates: Array<string>;

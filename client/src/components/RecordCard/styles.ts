@@ -47,8 +47,11 @@ export const TickerWrapper = styled.div`
   background-position: 0 80%;
 `;
 
+export const SecondRow = styled.div`
+  ${tw`flex flex-row items-center justify-between`}
+`;
 export const ResultsWrapper = styled.div`
-  ${tw`flex flex-row items-center`}
+  ${tw`flex flex-row items-center justify-between`}
   width: max-content;
   background: linear-gradient(120deg, #cbf9ce 0%, #cbf9ce 100%);
   background-repeat: no-repeat;
@@ -73,11 +76,12 @@ export const TimeToUnlock = styled.div`
 `;
 
 export const NotesWrapper = styled.div`
-  ${tw`flex flex-row items-center p-1 text-sm rounded-full bg-yellow-50`}
+  ${tw`flex flex-col p-1 pl-2 pr-2 text-sm rounded-md bg-yellow-50`}
+  max-width: 75%;
 `;
 
 export const DeleteButton = styled.button`
-  ${tw`text-2xl text-white transition duration-300 ease-in-out bg-red-600 rounded-full sm:opacity-0 sm:group-hover:opacity-100`}
+  ${tw`text-2xl text-white transition duration-300 ease-in-out bg-red-700 rounded-full sm:opacity-0 sm:group-hover:opacity-100`}
 `;
 
 export const LastRow = styled.div`

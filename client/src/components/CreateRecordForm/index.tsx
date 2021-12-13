@@ -6,6 +6,7 @@ interface Props {
   setCompany: Dispatch<SetStateAction<{ label: string; value: string } | null>>;
   setStartDate: Dispatch<SetStateAction<Date | null>>;
   setAmount: Dispatch<SetStateAction<number | null>>;
+  setIsInvestmentMade: Dispatch<SetStateAction<boolean | null>>;
   setNotes: Dispatch<SetStateAction<string>>;
 }
 
@@ -13,6 +14,7 @@ const CreateRecordForm: React.FC<Props> = ({
   setCompany,
   setStartDate,
   setAmount,
+  setIsInvestmentMade,
   setNotes,
 }: Props) => {
   const today = new Date();
@@ -33,6 +35,10 @@ const CreateRecordForm: React.FC<Props> = ({
 
   const handleNotesChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setNotes(e.target.value);
+  };
+
+  const handleInvestmentMadeChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setIsInvestmentMade(e.target.value === "Yes" ? true : false);
   };
 
   return (
@@ -71,6 +77,26 @@ const CreateRecordForm: React.FC<Props> = ({
             placeholder="$"
             onChange={handleAmountChange}
           />
+        </div>
+        <div className="mb-4">
+          <label className="block mb-2 text-sm font-bold text-gray-700">
+            Did you invest?
+          </label>
+          <input
+            type="radio"
+            value="Yes"
+            name="investment_made"
+            onChange={handleInvestmentMadeChange}
+          />{" "}
+          Yes
+          <input
+            className="ml-4"
+            type="radio"
+            value="No"
+            name="investment_made"
+            onChange={handleInvestmentMadeChange}
+          />{" "}
+          No
         </div>
         <div>
           <label className="block mb-2 text-sm font-bold text-gray-700">
