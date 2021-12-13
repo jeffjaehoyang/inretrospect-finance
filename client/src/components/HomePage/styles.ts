@@ -7,7 +7,7 @@ export const HomePageWrapper = styled.div`
 `;
 
 export const HomePageHeroWrapper = styled.div`
-  ${tw`flex items-center justify-center w-full p-3 mb-4 text-xl text-center text-white rounded-2xl bg-gradient-to-r from-gray-700 via-gray-900 to-black`};
+  ${tw`flex flex-col items-center justify-center w-full p-3 mb-4 text-center text-white sm:text-xl rounded-2xl bg-gradient-to-r from-gray-700 via-gray-900 to-black`};
   min-height: 300px;
 `;
 

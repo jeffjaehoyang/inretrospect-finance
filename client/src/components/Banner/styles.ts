@@ -15,5 +15,5 @@ export const BannerWrapper = styled.div<StyledProps>`
 `;
 
 export const BalanceWrapper = styled.div`
-  ${tw`flex flex-col items-center mt-2 text-sm sm:text-lg`}
+  ${tw`flex items-center mt-2 text-sm sm:text-lg`}
 `;

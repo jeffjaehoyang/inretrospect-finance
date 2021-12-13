@@ -1,6 +1,6 @@
 import { collection, deleteDoc, doc, getDocs, query, where } from 'firebase/firestore';
 import React, { Dispatch, SetStateAction, useState } from 'react';
-import { BsCheckCircleFill, BsFillChatQuoteFill } from 'react-icons/bs';
+import { BsFillChatQuoteFill } from 'react-icons/bs';
 import { FaQuestion } from 'react-icons/fa';
 import { FcCalendar } from 'react-icons/fc';
 import { MdCheckCircleOutline, MdDoNotDisturbAlt, MdLock } from 'react-icons/md';

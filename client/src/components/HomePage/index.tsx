@@ -7,7 +7,8 @@ const HomePage: React.FC = () => {
   return (
     <Styled.HomePageWrapper>
       <Styled.HomePageHeroWrapper>
-        Literally, finance in retrospect. For long-term investors 💸
+        <span>Literally, finance in retrospect.</span>
+        <span>For long-term investors 💸</span>
       </Styled.HomePageHeroWrapper>
       <Styled.HomePageTextWrapper>
         <Styled.HomePageText>
