@@ -73,7 +73,15 @@ const Modal: React.FC<Props> = ({ fetchData }: Props) => {
     }
     await fetchData();
     setShowModal(false);
+    resetFields();
     setIsSaving(false);
+  };
+
+  const resetFields = () => {
+    setCompany(null);
+    setStartDate(null);
+    setAmount(null);
+    setNotes("");
   };
 
   return (

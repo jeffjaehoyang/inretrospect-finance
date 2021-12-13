@@ -1,4 +1,4 @@
-import { deleteDoc, doc } from 'firebase/firestore';
+import { collection, deleteDoc, doc, getDocs, query, where } from 'firebase/firestore';
 import React, { Dispatch, SetStateAction, useState } from 'react';
 import { BsFillChatQuoteFill } from 'react-icons/bs';
 import { FaQuestion } from 'react-icons/fa';
@@ -33,7 +33,17 @@ const RecordCard: React.FC<Props> = ({
   const handleDelete = async () => {
     if (record.id == null) return; // id needs to be there to delete
     setIsDeleting(true);
+    // delete email tasks for the record being deleted
+    const tasksCollectionRef = collection(db, "emailTasks");
+    const tasksQuery = query(
+      tasksCollectionRef,
+      where("options.recordId", "==", record.id)
+    );
+    const tasksToDelete = await getDocs(tasksQuery);
+    tasksToDelete.docs.map((task) => deleteDoc(doc(db, "emailTasks", task.id)));
+    // delete record
     await deleteDoc(doc(db, "records", record.id));
+    // update recordsList for re-render
     const newRecordsList = recordsList.filter((doc) => doc.id !== record.id);
     setRecordsList(newRecordsList);
     setIsDeleting(false);
@@ -83,7 +93,7 @@ const RecordCard: React.FC<Props> = ({
             multiplier={multiplier}
           >
             {!record.isRecordLocked && (
-              <Styled.MultiplierText>
+              <Styled.MultiplierText multiplier={multiplier}>
                 {multiplier < 1 ? "⇣" : "⇡"}
               </Styled.MultiplierText>
             )}

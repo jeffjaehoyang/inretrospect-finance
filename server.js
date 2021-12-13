@@ -7,12 +7,12 @@ const cors = require("cors");
 const yahooFinance = require("yahoo-finance2").default;
 const Fuse = require("fuse.js");
 const sslRedirect = require("heroku-ssl-redirect").default;
-const { allTickerSymbols } = require("./tickers");
 const app = express();
 
 app.use(cors());
 app.use(sslRedirect());
 
+let allTickerSymbols = [];
 const redisPort = 6379;
 let client;
 if (process.env.REDIS_URL) {
@@ -104,6 +104,8 @@ client.on("error", (err) => {
   console.log(err);
 });
 
-app.listen(process.env.PORT || 5000, () => {
+app.listen(process.env.PORT || 5000, async () => {
+  const { tickers } = await require("./tickers");
+  allTickerSymbols = tickers;
   console.log("Node server started");
 });
