@@ -15,7 +15,8 @@ import * as Styled from './styles';
 
 const Dashboard: React.FC = () => {
   const [recordsList, setRecordsList] = useState<Record[]>([]);
-  const [balance, setBalance] = useState(0);
+  const [investedBalance, setInvestedBalance] = useState(0);
+  const [notInvestedBalance, setNotInvestedBalance] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const user = useFirebaseAuth();
 
@@ -31,7 +32,8 @@ const Dashboard: React.FC = () => {
         return data.data;
       });
   }
-  let tempBalance = 0;
+  let tempInvestedBalance = 0;
+  let tempNotInvestedBalance = 0;
   let tempRecords: Record[] = [];
 
   const fetchData = async () => {
@@ -63,7 +65,8 @@ const Dashboard: React.FC = () => {
             record = { ...record, marketData: stockDataMatchingDates };
             const multiplier = getMultiplier(stockDataMatchingDates.data);
             const difference = record.amount * multiplier - record.amount;
-            tempBalance += difference;
+            if (record.isInvestmentMade) tempInvestedBalance += difference;
+            else tempNotInvestedBalance += difference;
           } catch (e) {
             console.log(e);
           }
@@ -73,7 +76,8 @@ const Dashboard: React.FC = () => {
     );
     await Promise.all(recordsPromises);
     setRecordsList(tempRecords);
-    setBalance(tempBalance);
+    setInvestedBalance(tempInvestedBalance);
+    setNotInvestedBalance(tempNotInvestedBalance);
     setIsLoading(false);
   };
 
@@ -83,7 +87,10 @@ const Dashboard: React.FC = () => {
 
   return (
     <Styled.DashboardWrapper>
-      <Banner balance={balance} />
+      <Banner
+        investedBalance={investedBalance}
+        notInvestedBalance={notInvestedBalance}
+      />
       <Modal fetchData={fetchData} />
       <Styled.ContentWrapper>
         {user && !isLoading && recordsList.length > 0 ? (

@@ -6,7 +6,7 @@ interface StyledProps {
 }
 
 export const BannerWrapper = styled.div<StyledProps>`
-  ${tw`flex flex-col items-center justify-center w-full p-3 mt-4 mb-4 text-3xl text-center rounded-2xl bg-gradient-to-r`};
+  ${tw`flex flex-col items-center justify-center w-full p-3 mt-4 mb-2 text-3xl text-center rounded-2xl bg-gradient-to-r`};
   ${({ balance }) =>
     balance >= 0
       ? tw`from-green-100 to-green-200`
@@ -15,5 +15,5 @@ export const BannerWrapper = styled.div<StyledProps>`
 `;
 
 export const BalanceWrapper = styled.div`
-  ${tw`flex flex-row items-center mt-2`}
+  ${tw`flex flex-col items-center mt-2 text-sm sm:text-lg`}
 `;
