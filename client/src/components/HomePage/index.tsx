@@ -17,7 +17,7 @@ const HomePage: React.FC = () => {
             exit={{ opacity: 0 }}
             transition={{ delay: 1 }}
           >
-            📝 Record your investments <i>not made</i>.
+            📝 <i>Record</i> your investment decisions.
           </motion.div>
         </Styled.HomePageText>
         <Styled.HomePageText>
