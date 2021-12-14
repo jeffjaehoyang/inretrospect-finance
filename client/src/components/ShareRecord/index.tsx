@@ -119,12 +119,13 @@ const ShareRecord: React.FC = () => {
               </Styled.ResultsPill>
             </Styled.ResultsWrapper>
             <Styled.PercentageGain multiplier={multiplier}>
-              {!record.isRecordLocked && (
-                <Styled.MultiplierText multiplier={multiplier}>
-                  {multiplier < 1 ? "⇣" : "⇡"}
-                  <span className="mr-1">{gains.toLocaleString("en-us")}</span>%
-                </Styled.MultiplierText>
-              )}
+              <Styled.MultiplierText multiplier={multiplier}>
+                {multiplier < 1 ? "⇣" : "⇡"}
+              </Styled.MultiplierText>
+              <span className="mr-1 sm:text-xl">
+                {gains.toLocaleString("en-us")}
+              </span>
+              %
             </Styled.PercentageGain>
           </div>
           <Styled.NotesWrapper>

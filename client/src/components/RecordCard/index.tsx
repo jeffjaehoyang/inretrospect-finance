@@ -32,7 +32,7 @@ const RecordCard: React.FC<Props> = ({
     toast("Link copied to clipboard.", {
       duration: 2000,
       position: "top-center",
-      icon: <FaCheckCircle className="text-green-800" />,
+      icon: <FaCheckCircle className="text-green-300" />,
       ariaProps: {
         role: "status",
         "aria-live": "polite",

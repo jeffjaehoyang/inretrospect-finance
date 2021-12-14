@@ -16,7 +16,7 @@ const Banner: React.FC<Props> = ({
 }: Props) => {
   const user = useFirebaseAuth();
   return (
-    <Styled.BannerWrapper balance={investedBalance + notInvestedBalance}>
+    <Styled.BannerWrapper>
       <span className="text-lg">
         {user ? `Hi, ${user.displayName?.split(" ")[0]} 👋` : null}
       </span>

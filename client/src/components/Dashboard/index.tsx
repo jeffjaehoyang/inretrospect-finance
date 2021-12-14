@@ -1,5 +1,7 @@
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
+import { TiDelete } from 'react-icons/ti';
 import Loader from 'react-loader-spinner';
 
 import { db, useFirebaseAuth } from '../../auth/FirebaseAuthContext';
@@ -19,6 +21,32 @@ const Dashboard: React.FC = () => {
   const [notInvestedBalance, setNotInvestedBalance] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const user = useFirebaseAuth();
+
+  const recordLockedNotification = () => {
+    if (localStorage.getItem("toastHasBeenShown") === "yes") return;
+    toast(
+      <div className="flex items-center w-full">
+        Records are locked for the first 7 days.{" "}
+        <TiDelete
+          className="ml-2 text-xl text-red-300 cursor-pointer"
+          onClick={() => toast.dismiss()}
+        />
+      </div>,
+      {
+        duration: Infinity,
+        position: "bottom-center",
+        style: {
+          maxWidth: "max-content",
+        },
+        icon: "☝️",
+        ariaProps: {
+          role: "status",
+          "aria-live": "polite",
+        },
+      }
+    );
+    localStorage.setItem("toastHasBeenShown", "yes");
+  };
 
   let tempInvestedBalance = 0;
   let tempNotInvestedBalance = 0;
@@ -71,6 +99,7 @@ const Dashboard: React.FC = () => {
 
   useEffect(() => {
     fetchData();
+    recordLockedNotification();
   }, []);
 
   return (
