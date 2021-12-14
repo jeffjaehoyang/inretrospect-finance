@@ -144,7 +144,7 @@ const ShareRecord: React.FC = () => {
       {isLoading && (
         <Styled.EmptyWrapper>
           <Loader
-            type="TailSpin"
+            type="ThreeDots"
             color="#767676"
             height={50}
             width={50}

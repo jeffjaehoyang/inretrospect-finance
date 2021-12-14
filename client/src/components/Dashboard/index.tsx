@@ -103,7 +103,7 @@ const Dashboard: React.FC = () => {
               </Styled.EmptyContent>
             ) : (
               <Loader
-                type="TailSpin"
+                type="ThreeDots"
                 color="#767676"
                 height={50}
                 width={50}

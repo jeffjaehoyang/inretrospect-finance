@@ -130,7 +130,7 @@ export const getChartOptionsConfig = (
       size: 0,
     },
     title: {
-      text: `${symbol} stocks bought on ${startDate}`,
+      text: `${symbol} since ${startDate}`,
       align: "center" as "center",
       style: {
         color: "white",

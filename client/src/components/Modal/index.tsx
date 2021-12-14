@@ -137,7 +137,7 @@ const Modal: React.FC<Props> = ({ fetchData }: Props) => {
                   >
                     {isSaving ? (
                       <Loader
-                        type="TailSpin"
+                        type="ThreeDots"
                         color="#767676"
                         height={15}
                         width={15}

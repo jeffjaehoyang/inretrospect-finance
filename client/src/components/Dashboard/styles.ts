@@ -13,7 +13,7 @@ export const ContentWrapper = styled.div`
 
 export const EmptyWrapper = styled.div`
   ${tw`flex flex-col items-center justify-center w-full mt-2`}
-  min-height: 50vh;
+  min-height: 40vh;
 `;
 
 export const EmptyContent = styled.div`
