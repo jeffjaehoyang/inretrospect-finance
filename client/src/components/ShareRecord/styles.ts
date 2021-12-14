@@ -21,7 +21,7 @@ export const HeaderText = styled.div`
 
 export const InvestmentRecord = styled.div`
   ${tw`flex flex-col items-center justify-center w-full p-3 mt-4 rounded-md bg-gray-50`}
-  min-height: 30vh;
+  max-height: 30vh;
 `;
 
 export const ResultsWrapper = styled.div<StyledProps>`
