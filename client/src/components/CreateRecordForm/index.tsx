@@ -53,9 +53,9 @@ const CreateRecordForm: React.FC<Props> = ({
     <div className="w-full">
       <form>
         <div className="mb-4">
-          <label className="block mb-2 text-sm font-bold text-gray-700">
+          <label className="flex items-center block mb-2 text-sm font-bold text-gray-700">
             Company
-            <span className="ml-2 text-xs font-normal text-red-700">
+            <span className="ml-2 text-xs font-bold text-red-700">
               {errors.company && "*required"}
             </span>
           </label>
@@ -65,9 +65,9 @@ const CreateRecordForm: React.FC<Props> = ({
           </span>
         </div>
         <div className="mb-4">
-          <label className="block mb-2 text-sm font-bold text-gray-700">
+          <label className="flex items-center block mb-2 text-sm font-bold text-gray-700">
             Track Start Date
-            <span className="ml-2 text-xs font-normal text-red-700">
+            <span className="ml-2 text-xs font-bold text-red-700">
               {errors.startDate && "*required"}
             </span>
           </label>
@@ -85,9 +85,9 @@ const CreateRecordForm: React.FC<Props> = ({
           />
         </div>
         <div className="mb-4">
-          <label className="block mb-2 text-sm font-bold text-gray-700">
+          <label className="flex items-center block mb-2 text-sm font-bold text-gray-700">
             Did you invest?
-            <span className="ml-2 text-xs font-normal text-red-700">
+            <span className="ml-2 text-xs font-bold text-red-700">
               {errors.isInvestmentMade && "*required"}
             </span>
           </label>
@@ -108,9 +108,9 @@ const CreateRecordForm: React.FC<Props> = ({
           No
         </div>
         <div className="mb-4">
-          <label className="block mb-2 text-sm font-bold text-gray-700">
+          <label className="flex items-center block mb-2 text-sm font-bold text-gray-700">
             Investment Amount (USD)
-            <span className="ml-2 text-xs font-normal text-red-700">
+            <span className="ml-2 text-xs font-bold text-red-700">
               {errors.amount && "*required"}
             </span>
           </label>
