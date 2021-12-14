@@ -1,6 +1,5 @@
 import { collection, deleteDoc, doc, getDocs, query, where } from 'firebase/firestore';
 import React, { Dispatch, SetStateAction, useState } from 'react';
-import toast from 'react-hot-toast';
 import { BsFillChatQuoteFill } from 'react-icons/bs';
 import { FaCheckCircle, FaQuestion, FaShareSquare } from 'react-icons/fa';
 import { FcCalendar } from 'react-icons/fc';
@@ -12,6 +11,7 @@ import Loader from 'react-loader-spinner';
 import { db } from '../../auth/FirebaseAuthContext';
 import { getDateString, getDaysDifference, getMultiplier } from '../../dataProcessing';
 import { Record } from '../../interfaces';
+import { notifyCopyLink, notifyDelete } from '../../toasts';
 import StockModal from '../StockModal';
 import * as Styled from './styles';
 
@@ -28,18 +28,6 @@ const RecordCard: React.FC<Props> = ({
 }: Props) => {
   const [showModal, setShowModal] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
-  const copyLinkAndNotify = (link: string) => {
-    toast("Link copied to clipboard.", {
-      duration: 2000,
-      position: "top-center",
-      icon: <FaCheckCircle className="text-green-300" />,
-      ariaProps: {
-        role: "status",
-        "aria-live": "polite",
-      },
-    });
-    navigator.clipboard.writeText(link);
-  };
 
   const multiplier = getMultiplier(record.marketData?.data || []);
   const currentAmount = record.amount * multiplier;
@@ -61,6 +49,7 @@ const RecordCard: React.FC<Props> = ({
     const newRecordsList = recordsList.filter((doc) => doc.id !== record.id);
     setRecordsList(newRecordsList);
     setIsDeleting(false);
+    notifyDelete(<FaCheckCircle className="text-green-300" />);
   };
 
   return (
@@ -143,8 +132,9 @@ const RecordCard: React.FC<Props> = ({
             <Styled.ShareButton
               to={`/share-record/${record.id}`}
               onClick={() =>
-                copyLinkAndNotify(
-                  `https://inretrospect.finance/share-record/${record.id}`
+                notifyCopyLink(
+                  `https://inretrospect.finance/share-record/${record.id}`,
+                  <FaCheckCircle className="text-green-300" />
                 )
               }
             >

@@ -18,11 +18,7 @@ const App: React.FC = () => {
       <FirebaseAuthProvider>
         <Container>
           <>
-            <Toaster
-              toastOptions={{
-                className: "bg-gray-800 text-white text-sm",
-              }}
-            />
+            <Toaster />
             <Wrapper>
               <Routes>
                 <Route path="*" element={<NotFoundPage />} />
