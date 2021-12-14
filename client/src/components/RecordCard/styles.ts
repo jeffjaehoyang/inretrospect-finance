@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import tw from 'twin.macro';
 
@@ -21,6 +22,10 @@ export const HeaderWrapper = styled.div`
 
 export const CompanyInfo = styled.div`
   ${tw`flex flex-row items-center`}
+`;
+
+export const ShareButton = styled(Link)`
+  ${tw`flex flex-row items-center text-sm bg-transparent rounded-md`}
 `;
 
 export const PercentageGain = styled.div<StyledProps>`
@@ -50,10 +55,18 @@ export const TickerWrapper = styled.div`
 export const SecondRow = styled.div`
   ${tw`flex flex-row items-center justify-between`}
 `;
-export const ResultsWrapper = styled.div`
+export const ResultsWrapper = styled.div<StyledProps>`
   ${tw`flex flex-row items-center justify-between`}
   width: max-content;
-  background: linear-gradient(120deg, #cbf9ce 0%, #cbf9ce 100%);
+  background: linear-gradient(
+    120deg,
+    ${(props) =>
+        props.multiplier && props.multiplier < 1 ? "#ffcac9" : "#cbf9ce"}
+      0%,
+    ${(props) =>
+        props.multiplier && props.multiplier < 1 ? "#ffcac9" : "#cbf9ce"}
+      100%
+  );
   background-repeat: no-repeat;
   background-size: 100% 30%;
   background-position: 0 80%;

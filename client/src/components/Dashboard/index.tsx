@@ -4,7 +4,7 @@ import Loader from 'react-loader-spinner';
 
 import { db, useFirebaseAuth } from '../../auth/FirebaseAuthContext';
 import {
-    getDateString, getMultiplier, getStartDateMatchingData, getWeeksDifference
+    api, getDateString, getMultiplier, getStartDateMatchingData, getWeeksDifference
 } from '../../dataProcessing';
 import { ReactComponent as NoData } from '../../images/no_data.svg';
 import { APIResponseFormat, Record } from '../../interfaces';
@@ -20,18 +20,6 @@ const Dashboard: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const user = useFirebaseAuth();
 
-  function api<APIResponseFormat>(url: string): Promise<APIResponseFormat> {
-    return fetch(url)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(response.statusText);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        return data.data;
-      });
-  }
   let tempInvestedBalance = 0;
   let tempNotInvestedBalance = 0;
   let tempRecords: Record[] = [];

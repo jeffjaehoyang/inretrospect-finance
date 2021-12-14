@@ -1,7 +1,8 @@
 import { collection, deleteDoc, doc, getDocs, query, where } from 'firebase/firestore';
 import React, { Dispatch, SetStateAction, useState } from 'react';
+import toast from 'react-hot-toast';
 import { BsFillChatQuoteFill } from 'react-icons/bs';
-import { FaQuestion } from 'react-icons/fa';
+import { FaCheckCircle, FaQuestion, FaShareSquare } from 'react-icons/fa';
 import { FcCalendar } from 'react-icons/fc';
 import { MdCheckCircleOutline, MdDoNotDisturbAlt, MdLock } from 'react-icons/md';
 import { RiTimerLine } from 'react-icons/ri';
@@ -27,6 +28,19 @@ const RecordCard: React.FC<Props> = ({
 }: Props) => {
   const [showModal, setShowModal] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const copyLinkAndNotify = (link: string) => {
+    toast("Link copied to clipboard.", {
+      duration: 2000,
+      position: "top-center",
+      icon: <FaCheckCircle className="text-green-800" />,
+      ariaProps: {
+        role: "status",
+        "aria-live": "polite",
+      },
+    });
+    navigator.clipboard.writeText(link);
+  };
+
   const multiplier = getMultiplier(record.marketData?.data || []);
   const currentAmount = record.amount * multiplier;
 
@@ -112,7 +126,7 @@ const RecordCard: React.FC<Props> = ({
           </Styled.PercentageGain>
         </Styled.HeaderWrapper>
         <Styled.SecondRow>
-          <Styled.ResultsWrapper>
+          <Styled.ResultsWrapper multiplier={multiplier}>
             <Styled.ResultsPill>
               ${record.amount?.toLocaleString("en-US")}
             </Styled.ResultsPill>
@@ -125,6 +139,19 @@ const RecordCard: React.FC<Props> = ({
               )}
             </Styled.ResultsPill>
           </Styled.ResultsWrapper>
+          {!record.isRecordLocked && (
+            <Styled.ShareButton
+              to={`/share-record/${record.id}`}
+              onClick={() =>
+                copyLinkAndNotify(
+                  `https://inretrospect.finance/share-record/${record.id}`
+                )
+              }
+            >
+              <FaShareSquare className="mr-1" />
+              Share
+            </Styled.ShareButton>
+          )}
           {record.isInvestmentMade ? (
             <MdCheckCircleOutline
               className="absolute text-lg text-green-700"

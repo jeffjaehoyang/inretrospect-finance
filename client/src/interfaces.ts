@@ -16,6 +16,16 @@ export interface Record {
   };
 }
 
+export interface TimeSeriesData {
+  [key: string]: StockData;
+}
+
+export interface User {
+  displayName: string;
+  email: string;
+  uid: string;
+}
+
 export interface StockData {
   "1. open": string;
   "2. high": string;

@@ -1,9 +1,19 @@
-import { Record, StockData } from './interfaces';
+import { Record, TimeSeriesData } from './interfaces';
 
-interface TimeSeriesData {
-  [key: string]: StockData;
+export function api<APIResponseFormat>(
+  url: string
+): Promise<APIResponseFormat> {
+  return fetch(url)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      return data.data;
+    });
 }
-
 export const getStartDateMatchingData = (
   record: Record,
   rawData: TimeSeriesData | null
