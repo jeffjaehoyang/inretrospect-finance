@@ -14,7 +14,7 @@ export const notifyCopyLink = (link: string, icon: JSX.Element) => {
   navigator.clipboard.writeText(link);
 };
 export const notifyDelete = (icon: JSX.Element) => {
-  toast("Record Deleted Successfully.", {
+  toast("Record deleted successfully.", {
     duration: 2000,
     position: "bottom-center",
     className: "text-white bg-gray-800 text-sm max-w-fit",

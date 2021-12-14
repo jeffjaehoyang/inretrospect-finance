@@ -168,7 +168,7 @@ const RecordCard: React.FC<Props> = ({
           ) : (
             <Styled.TimeToUnlock>
               <RiTimerLine className="mr-1" />
-              {7 - getDaysDifference(new Date(), record.startDate)} days to
+              {7 - getDaysDifference(new Date(), record.startDate)} day(s) to
               unlock
             </Styled.TimeToUnlock>
           )}
