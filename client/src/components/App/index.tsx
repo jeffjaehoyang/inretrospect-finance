@@ -1,5 +1,5 @@
 import React from 'react';
-import toast, { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import { FirebaseAuthProvider } from '../../auth/FirebaseAuthContext';
