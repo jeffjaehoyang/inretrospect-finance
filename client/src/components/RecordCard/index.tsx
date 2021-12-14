@@ -18,13 +18,21 @@ import * as Styled from './styles';
 interface Props {
   record: Record;
   recordsList: Record[];
+  investedBalance: number;
+  notInvestedBalance: number;
   setRecordsList: Dispatch<SetStateAction<Record[]>>;
+  setInvestedBalance: Dispatch<SetStateAction<number>>;
+  setNotInvestedBalance: Dispatch<SetStateAction<number>>;
 }
 
 const RecordCard: React.FC<Props> = ({
   record,
   recordsList,
+  investedBalance,
+  notInvestedBalance,
   setRecordsList,
+  setInvestedBalance,
+  setNotInvestedBalance,
 }: Props) => {
   const [showModal, setShowModal] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -34,6 +42,7 @@ const RecordCard: React.FC<Props> = ({
 
   const handleDelete = async () => {
     if (record.id == null) return; // id needs to be there to delete
+    const isInvestmentMade = record.isInvestmentMade;
     setIsDeleting(true);
     // delete email tasks for the record being deleted
     const tasksCollectionRef = collection(db, "emailTasks");
@@ -47,6 +56,9 @@ const RecordCard: React.FC<Props> = ({
     await deleteDoc(doc(db, "records", record.id));
     // update recordsList for re-render
     const newRecordsList = recordsList.filter((doc) => doc.id !== record.id);
+    isInvestmentMade
+      ? setInvestedBalance(investedBalance - (record.gains || 0))
+      : setNotInvestedBalance(notInvestedBalance - (record.gains || 0));
     setRecordsList(newRecordsList);
     setIsDeleting(false);
     notifyDelete(<FaCheckCircle className="text-green-300" />);

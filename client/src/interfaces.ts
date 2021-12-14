@@ -14,6 +14,7 @@ export interface Record {
     dates: Array<string>;
     data: Array<number>;
   };
+  gains?: number;
 }
 
 export interface TimeSeriesData {

@@ -56,6 +56,7 @@ const Dashboard: React.FC = () => {
             record = { ...record, marketData: stockDataMatchingDates };
             const multiplier = getMultiplier(stockDataMatchingDates.data);
             const difference = record.amount * multiplier - record.amount;
+            record = { ...record, gains: difference };
             if (record.isInvestmentMade) tempInvestedBalance += difference;
             else tempNotInvestedBalance += difference;
           } catch (e) {
@@ -102,7 +103,11 @@ const Dashboard: React.FC = () => {
                   key={index}
                   record={record}
                   recordsList={recordsList}
+                  investedBalance={investedBalance}
+                  notInvestedBalance={notInvestedBalance}
                   setRecordsList={setRecordsList}
+                  setInvestedBalance={setInvestedBalance}
+                  setNotInvestedBalance={setNotInvestedBalance}
                 />
               );
             })
