@@ -80,7 +80,7 @@ app.get("/tickerSymbol", async (req, res) => {
 function fuzzySearch(options, value) {
   const fuse = new Fuse(options, {
     keys: ["value", "label"],
-    threshold: 0.2,
+    threshold: 0.5,
   });
 
   if (!value.length) {

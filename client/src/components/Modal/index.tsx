@@ -25,6 +25,12 @@ const Modal: React.FC<Props> = ({ fetchData }: Props) => {
     null
   );
   const [notes, setNotes] = useState<string>("");
+  const [errors, setErrors] = useState({
+    company: false,
+    startDate: false,
+    amount: false,
+    isInvestmentMade: false,
+  });
   const [isSaving, setIsSaving] = useState(false);
   const user = useFirebaseAuth();
 
@@ -35,38 +41,53 @@ const Modal: React.FC<Props> = ({ fetchData }: Props) => {
     return companyDomain;
   };
 
+  const checkFormErrors = () => {
+    setErrors({
+      company: company == null,
+      startDate: startDate == null,
+      amount: amount == null,
+      isInvestmentMade: isInvestmentMade == null,
+    });
+  };
+
   const handleSave = async () => {
-    if (user == null || company == null || startDate == null || amount == null)
-      return; // handle exception
+    checkFormErrors();
+    if (
+      company == null ||
+      startDate == null ||
+      amount == null ||
+      isInvestmentMade == null
+    )
+      return;
     setIsSaving(true);
-    const companyDomain = await getCompanyDomain(company.value);
+    const companyDomain = await getCompanyDomain(company?.value as string);
     const newRecordRef = await addDoc(collection(db, "records"), {
-      symbol: company.value,
-      companyName: company.label,
+      symbol: company?.value,
+      companyName: company?.label,
       companyDomain: companyDomain,
       timestamp: new Date(),
       startDate: startDate,
       amount: amount,
       notes: notes,
       isInvestmentMade: isInvestmentMade,
-      uid: user.uid,
+      uid: user?.uid,
     });
     await updateDoc(newRecordRef, {
       id: newRecordRef.id,
     });
-    if (getWeeksDifference(startDate, new Date()) < 1) {
+    if (getWeeksDifference(startDate as Date, new Date()) < 1) {
       // create an EmailTask scheduled to run after a week
       let weekFromToday = new Date();
       weekFromToday.setDate(new Date().getDate() + 7);
       addDoc(collection(db, "emailTasks"), {
         isExecuted: false,
         options: {
-          emailTo: user.email,
-          uid: user.uid,
+          emailTo: user?.email,
+          uid: user?.uid,
           recordId: newRecordRef.id,
-          symbol: company.value,
-          dispayName: user.displayName,
-          companyName: company.label,
+          symbol: company?.value,
+          dispayName: user?.displayName,
+          companyName: company?.label,
           companyDomain: companyDomain,
           notes: notes,
           amount: amount,
@@ -88,6 +109,12 @@ const Modal: React.FC<Props> = ({ fetchData }: Props) => {
     setAmount(null);
     setIsInvestmentMade(null);
     setNotes("");
+    setErrors({
+      company: false,
+      startDate: false,
+      amount: false,
+      isInvestmentMade: false,
+    });
   };
 
   return (
@@ -103,7 +130,10 @@ const Modal: React.FC<Props> = ({ fetchData }: Props) => {
       {showModal ? (
         <Styled.Backdrop
           onClick={(e: any) => {
-            if (e.target.localName === "main") setShowModal(false);
+            if (e.target.localName === "main") {
+              setShowModal(false);
+              resetFields();
+            }
           }}
         >
           <Styled.ModalWrapper>
@@ -111,30 +141,36 @@ const Modal: React.FC<Props> = ({ fetchData }: Props) => {
               <Styled.ContentWrapper>
                 <Styled.HeaderWrapper>
                   <div className="text-2xl font-semibold">Add a Record</div>
-                  <Styled.XButtonWrapper onClick={() => setShowModal(false)}>
+                  <Styled.XButtonWrapper
+                    onClick={() => {
+                      setShowModal(false);
+                      resetFields();
+                    }}
+                  >
                     <Styled.XButton>×</Styled.XButton>
                   </Styled.XButtonWrapper>
                 </Styled.HeaderWrapper>
                 <Styled.FormWrapper>
                   <CreateRecordForm
+                    startDate={startDate}
                     setCompany={setCompany}
                     setStartDate={setStartDate}
                     setAmount={setAmount}
                     setIsInvestmentMade={setIsInvestmentMade}
                     setNotes={setNotes}
+                    errors={errors}
                   />
                 </Styled.FormWrapper>
                 <Styled.FooterWrapper>
                   <Styled.CloseButtonWrapper
-                    onClick={() => setShowModal(false)}
+                    onClick={() => {
+                      setShowModal(false);
+                      resetFields();
+                    }}
                   >
                     Close
                   </Styled.CloseButtonWrapper>
-                  <Styled.SaveButtonWrapper
-                    className=""
-                    type="button"
-                    onClick={handleSave}
-                  >
+                  <Styled.SaveButtonWrapper type="button" onClick={handleSave}>
                     {isSaving ? (
                       <Loader
                         type="ThreeDots"

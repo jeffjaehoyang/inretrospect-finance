@@ -52,7 +52,7 @@ export const FooterWrapper = styled.div`
 `;
 
 export const CloseButtonWrapper = styled.button`
-  ${tw`px-6 py-2 mb-1 mr-1 text-sm font-bold text-red-500 uppercase transition-all duration-150 ease-linear outline-none focus:outline-none`}
+  ${tw`px-6 py-2 mb-1 mr-1 text-sm font-bold text-red-700 uppercase transition-all duration-150 ease-linear outline-none focus:outline-none`}
 `;
 
 export const SaveButtonWrapper = styled.button`

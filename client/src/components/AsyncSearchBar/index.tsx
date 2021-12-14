@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import makeAnimated from 'react-select/animated';
 import AsyncSelect from 'react-select/async';
 
@@ -7,14 +7,11 @@ interface Props {
 }
 
 const AsyncSearchBar: React.FC<Props> = ({ setCompany }: Props) => {
-  //set default query terms
-  const [query, setQuery] = useState("");
-
   //get animated components wrapper
   const animatedComponents = makeAnimated();
 
   // fetch filteres search results for dropdown
-  const loadOptions = () => {
+  const loadOptions = (query: string) => {
     return fetch(`/tickerSymbol?symbol=${query}`).then((res) => {
       return res.json();
     });
@@ -30,11 +27,13 @@ const AsyncSearchBar: React.FC<Props> = ({ setCompany }: Props) => {
     <>
       <AsyncSelect
         cacheOptions
+        isMulti={false}
         isClearable={true}
         components={animatedComponents}
         loadOptions={loadOptions}
-        onInputChange={(value) => setQuery(value)}
-        onChange={(value) => handleCompanyChange(value)}
+        onChange={handleCompanyChange}
+        placeholder="Select company"
+        noOptionsMessage={() => "Search for options"}
       />
     </>
   );
