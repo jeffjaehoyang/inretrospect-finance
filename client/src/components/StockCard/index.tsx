@@ -20,7 +20,7 @@ const StockCard: React.FC<Props> = ({
   const options = getChartOptionsConfig(startDate, symbol, data, dates);
   const series = [
     {
-      name: "Stock Price",
+      name: "Price per share",
       data: data,
     },
   ];

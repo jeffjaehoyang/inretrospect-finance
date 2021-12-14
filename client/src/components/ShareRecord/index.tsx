@@ -108,14 +108,11 @@ const ShareRecord: React.FC = () => {
           <div className="flex flex-row font-bold">
             <Styled.ResultsWrapper multiplier={multiplier}>
               <Styled.ResultsPill>
-                ${marketData.data[0].toLocaleString("en-us")}
+                ${record.amount.toLocaleString("en-us")}
               </Styled.ResultsPill>
               <div className="ml-1 mr-1">→</div>
               <Styled.ResultsPill>
-                $
-                {marketData.data[marketData.data.length - 1].toLocaleString(
-                  "en-us"
-                )}
+                ${(record.amount * multiplier).toLocaleString("en-us")}
               </Styled.ResultsPill>
             </Styled.ResultsWrapper>
             <Styled.PercentageGain multiplier={multiplier}>

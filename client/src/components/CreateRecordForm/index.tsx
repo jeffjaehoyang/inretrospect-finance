@@ -68,18 +68,6 @@ const CreateRecordForm: React.FC<Props> = ({
         </div>
         <div className="mb-4">
           <label className="block mb-2 text-sm font-bold text-gray-700">
-            Investment Amount (USD)
-          </label>
-          <input
-            className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-            id="username"
-            type="number"
-            placeholder="$"
-            onChange={handleAmountChange}
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block mb-2 text-sm font-bold text-gray-700">
             Did you invest?
           </label>
           <input
@@ -97,6 +85,18 @@ const CreateRecordForm: React.FC<Props> = ({
             onChange={handleInvestmentMadeChange}
           />{" "}
           No
+        </div>
+        <div className="mb-4">
+          <label className="block mb-2 text-sm font-bold text-gray-700">
+            Investment Amount (USD)
+          </label>
+          <input
+            className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+            id="username"
+            type="number"
+            placeholder="$"
+            onChange={handleAmountChange}
+          />
         </div>
         <div>
           <label className="block mb-2 text-sm font-bold text-gray-700">
