@@ -20,7 +20,7 @@ export const HeaderText = styled.div`
 `;
 
 export const InvestmentRecord = styled.div`
-  ${tw`flex flex-col items-center justify-center w-full p-3 mt-4 rounded-md bg-gray-50`}
+  ${tw`flex flex-col items-center justify-center w-full p-3 mt-4 rounded-md bg-yellow-50`}
   max-height: 30vh;
 `;
 
@@ -58,7 +58,7 @@ export const MultiplierText = styled.span<StyledProps>`
 `;
 
 export const NotesWrapper = styled.div`
-  ${tw`flex flex-col items-center justify-center p-1 pl-2 pr-2 mt-3 text-sm text-center rounded-md bg-yellow-50 sm:text-base`}
+  ${tw`flex flex-col items-center justify-center p-1 pl-2 pr-2 mt-3 text-sm text-center rounded-md sm:text-base`}
 `;
 
 export const EmptyWrapper = styled.div`
