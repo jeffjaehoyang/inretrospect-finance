@@ -3,17 +3,16 @@ import tw from 'twin.macro';
 
 export const HomePageWrapper = styled.div`
   ${tw`flex flex-col items-center w-full mt-4 mb-4`};
-  min-height: 90vh;
 `;
 
 export const HomePageHeroWrapper = styled.div`
-  ${tw`flex flex-col items-center justify-center w-full p-3 mb-4 text-center text-white sm:text-xl rounded-2xl bg-gradient-to-r from-gray-700 via-gray-900 to-black`};
-  min-height: 300px;
+  ${tw`flex flex-col items-center justify-center w-full p-3 mb-4 text-center text-white sm:text-xl rounded-2xl bg-gradient-to-r from-indigo-900 to-gray-900`};
+  min-height: 25vh;
 `;
 
 export const HomePageTextWrapper = styled.div`
-  ${tw`flex flex-col items-center justify-between pt-14 pb-14`}
-  min-height: 50vh;
+  ${tw`flex flex-col items-center justify-between pt-20 pb-20`}
+  min-height: 45vh;
 `;
 
 export const HomePageText = styled.div`

@@ -15,7 +15,7 @@ export const Backdrop = styled.div`
 `;
 
 export const AddRecordButtonWrapper = styled.button`
-  ${tw`flex flex-row items-center text-white bg-gray-800 hover:bg-gray-900 font-medium rounded-lg text-sm px-5 py-2.5 text-center mt-3 mb-3 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-800 dark:border-gray-700`}
+  ${tw`flex flex-row items-center text-white bg-gray-900 hover:bg-gray-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mt-3 mb-3`}
 `;
 
 export const ModalWrapper = styled.main`
