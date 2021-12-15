@@ -7,7 +7,7 @@ export const NavbarWrapper = styled.div`
 `;
 
 export const Logo = styled(Link)`
-  ${tw`text-base font-bold text-gray-700 uppercase cursor-pointer`};
+  ${tw`flex flex-row items-center text-base font-bold text-gray-700 cursor-pointer`};
 `;
 
 export const AuthBtn = styled.button`
