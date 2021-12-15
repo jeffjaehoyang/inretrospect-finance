@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyles = createGlobalStyle`
     *{
@@ -8,6 +8,9 @@ const GlobalStyles = createGlobalStyle`
         box-sizing:border-box;
         font-family: 'Open Sans', sans-serif; 
         color: '#4b5668';
+    }
+    body { 
+        background: #fafafa;
     }
     #root{
         margin:0 auto;

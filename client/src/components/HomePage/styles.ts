@@ -12,7 +12,9 @@ export const HomePageHeroWrapper = styled.div`
 
 export const HomePageTextWrapper = styled.div`
   ${tw`flex flex-col items-center justify-between pt-20 pb-20`}
-  min-height: 45vh;
+  @media (min-width: 768px) {
+    height: 48vh;
+  }
 `;
 
 export const HomePageText = styled.div`
