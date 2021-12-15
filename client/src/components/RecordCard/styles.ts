@@ -8,7 +8,7 @@ interface StyledProps {
 }
 
 export const CardWrapper = styled.div<StyledProps>`
-  ${tw`relative flex flex-col p-3 transition duration-300 ease-in-out bg-white border-2 border-gray-100 shadow-sm sm:max-w-xs rounded-3xl hover:shadow-lg`};
+  ${tw`relative flex flex-col p-3 transition duration-300 ease-in-out bg-white border border-gray-100 shadow-sm sm:max-w-xs rounded-3xl hover:shadow-lg`};
   ${({ isRecordLocked }) =>
     !isRecordLocked ? tw`cursor-pointer` : tw`cursor-not-allowed`};
   width: 100%;
