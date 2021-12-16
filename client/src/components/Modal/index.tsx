@@ -77,8 +77,8 @@ const Modal: React.FC<Props> = ({ fetchData }: Props) => {
     });
     if (getWeeksDifference(startDate as Date, new Date()) < 1) {
       // create an EmailTask scheduled to run after a week
-      let weekFromToday = new Date();
-      weekFromToday.setDate(new Date().getDate() + 7);
+      let weekFromToday = startDate;
+      weekFromToday.setDate(startDate.getDate() + 7);
       addDoc(collection(db, "emailTasks"), {
         isExecuted: false,
         options: {
