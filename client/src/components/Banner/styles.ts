@@ -7,6 +7,18 @@ export const BannerWrapper = styled.div`
   min-height: 20vh;
 `;
 
+export const UserName = styled.span`
+  ${tw`text-lg`}
+`;
+
+export const FlexCol = styled.div`
+  ${tw`flex flex-col ml-4`}
+`;
+
+export const FlexRow = styled.div`
+  ${tw`flex items-center font-bold`}
+`;
+
 export const BalanceWrapper = styled.div`
   ${tw`flex items-center mt-2 text-sm sm:text-lg`}
 `;

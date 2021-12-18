@@ -49,11 +49,17 @@ const CreateRecordForm: React.FC<Props> = ({
     return day !== 0 && day !== 6;
   };
 
+  const formInputStyle =
+    "w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline";
+
+  const labelStyle =
+    "flex items-center block mb-2 text-sm font-bold text-gray-700";
+
   return (
     <div className="w-full">
       <form>
         <div className="mb-4">
-          <label className="flex items-center block mb-2 text-sm font-bold text-gray-700">
+          <label className={labelStyle}>
             Company
             <span className="ml-2 text-xs font-bold text-red-700">
               {errors.company && "*required"}
@@ -65,7 +71,7 @@ const CreateRecordForm: React.FC<Props> = ({
           </span>
         </div>
         <div className="mb-4">
-          <label className="flex items-center block mb-2 text-sm font-bold text-gray-700">
+          <label className={labelStyle}>
             Track Start Date
             <span className="ml-2 text-xs font-bold text-red-700">
               {errors.startDate && "*required"}
@@ -77,7 +83,7 @@ const CreateRecordForm: React.FC<Props> = ({
             filterDate={isWeekday}
             maxDate={new Date()}
             placeholderText="Select date"
-            className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+            className={formInputStyle}
             showMonthDropdown
             showYearDropdown
             dropdownMode="select"
@@ -85,7 +91,7 @@ const CreateRecordForm: React.FC<Props> = ({
           />
         </div>
         <div className="mb-4">
-          <label className="flex items-center block mb-2 text-sm font-bold text-gray-700">
+          <label className={labelStyle}>
             Did you invest?
             <span className="ml-2 text-xs font-bold text-red-700">
               {errors.isInvestmentMade && "*required"}
@@ -108,14 +114,14 @@ const CreateRecordForm: React.FC<Props> = ({
           No
         </div>
         <div className="mb-4">
-          <label className="flex items-center block mb-2 text-sm font-bold text-gray-700">
+          <label className={labelStyle}>
             Investment Amount (USD)
             <span className="ml-2 text-xs font-bold text-red-700">
               {errors.amount && "*required"}
             </span>
           </label>
           <input
-            className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+            className={formInputStyle}
             id="username"
             type="number"
             placeholder="$"
@@ -123,11 +129,9 @@ const CreateRecordForm: React.FC<Props> = ({
           />
         </div>
         <div>
-          <label className="block mb-2 text-sm font-bold text-gray-700">
-            Notes
-          </label>
+          <label className={labelStyle}>Notes</label>
           <textarea
-            className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+            className={formInputStyle}
             id="notes"
             placeholder="Notes"
             maxLength={50}
