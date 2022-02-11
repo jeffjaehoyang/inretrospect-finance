@@ -10,7 +10,7 @@ const getAllTickers = async () => {
   return result;
 };
 
-module.exports = (async function () {
+module.exports = (async function() {
   const tickers = await getAllTickers();
   return { tickers: tickers };
 })();

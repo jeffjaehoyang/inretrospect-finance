@@ -14,6 +14,7 @@ export function api<APIResponseFormat>(
       return data.data;
     });
 }
+
 export const getStartDateMatchingData = (
   record: Record,
   rawData: TimeSeriesData | null

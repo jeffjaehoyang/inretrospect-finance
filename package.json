@@ -16,5 +16,8 @@
   "engines": {
     "node": "16.3"
   },
-  "homepage": "https://inretrospect-finance.herokuapp.com/"
+  "homepage": "https://inretrospect-finance.herokuapp.com/",
+  "devDependencies": {
+    "prettier": "^2.5.1"
+  }
 }
