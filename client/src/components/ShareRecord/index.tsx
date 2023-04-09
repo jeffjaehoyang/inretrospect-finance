@@ -7,62 +7,60 @@ import { useParams } from 'react-router-dom';
 
 import { db } from '../../auth/FirebaseAuthContext';
 import { api, getDateString, getMultiplier, getStartDateMatchingData } from '../../dataProcessing';
-import { APIResponseFormat, Record, User } from '../../interfaces';
+import { Record, User } from '../../interfaces';
 import StockCard from '../StockCard';
 import * as Styled from './styles';
 
 const ShareRecord: React.FC = () => {
-  const { recordId } = useParams();
-  const [record, setRecord] = useState<Record | null | undefined>(null);
-  const [recordUser, setRecordUser] = useState<User | null | undefined>(null);
+  const { recordId } = useParams()
+  const [record, setRecord] = useState<Record | null | undefined>(null)
+  const [recordUser, setRecordUser] = useState<User | null | undefined>(null)
   const [marketData, setMarketData] = useState<{
-    dates: Array<string>;
-    data: Array<number>;
-  } | null>(null);
-  const [multiplier, setMultiplier] = useState<number | null>(null);
-  const [gains, setGains] = useState<number | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+    dates: Array<string>
+    data: Array<number>
+  } | null>(null)
+  const [multiplier, setMultiplier] = useState<number | null>(null)
+  const [gains, setGains] = useState<number | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     if (record == null && recordId) {
-      setIsLoading(true);
-      const docRef = doc(db, "records", recordId);
+      setIsLoading(true)
+      const docRef = doc(db, 'records', recordId)
       getDoc(docRef).then(async (ref) => {
-        const data = ref.data();
+        const data = ref.data()
         if (data) {
-          data.startDate = data.startDate.toDate();
+          data.startDate = data.startDate.toDate()
         }
-        setRecord(data as Record);
-        const q = query(collection(db, "users"), where("uid", "==", data?.uid));
-        const querySnapshot = await getDocs(q);
+        setRecord(data as Record)
+        const q = query(collection(db, 'users'), where('uid', '==', data?.uid))
+        const querySnapshot = await getDocs(q)
         querySnapshot.forEach((doc) => {
-          setRecordUser(doc.data() as User);
-        });
-      });
+          setRecordUser(doc.data() as User)
+        })
+      })
     }
-    fetchData();
-  }, [record]);
+    fetchData()
+  }, [record])
 
   const fetchData = async () => {
-    setIsLoading(true);
-    if (record == null) return;
-    const response = await api<APIResponseFormat>(
-      `/stockData?symbol=${record.symbol}`
-    );
+    setIsLoading(true)
+    if (record == null) return
+    const response = await api(`/stockData?symbol=${record.symbol}`)
     let stockDataMatchingDates: {
-      dates: Array<string>;
-      data: Array<number>;
-    } = getStartDateMatchingData(record, response["Time Series (Daily)"]);
-    setMarketData(stockDataMatchingDates);
-    const multiplier = getMultiplier(stockDataMatchingDates.data);
-    setMultiplier(multiplier);
+      dates: Array<string>
+      data: Array<number>
+    } = getStartDateMatchingData(record, response)
+    setMarketData(stockDataMatchingDates)
+    const multiplier = getMultiplier(stockDataMatchingDates.data)
+    setMultiplier(multiplier)
     setGains(
       multiplier >= 1
         ? Math.round((multiplier - 1) * 100)
         : Math.round((1 - multiplier) * 100)
-    );
-    setIsLoading(false);
-  };
+    )
+    setIsLoading(false)
+  }
 
   return (
     <Styled.ShareRecordWrapper>
@@ -70,7 +68,7 @@ const ShareRecord: React.FC = () => {
         {!isLoading &&
           record &&
           recordUser &&
-          `Check out ${recordUser.displayName.split(" ")[0]}'s investment on ${
+          `Check out ${recordUser.displayName.split(' ')[0]}'s investment on ${
             record?.symbol
           }`}
       </Styled.HeaderText>
@@ -99,28 +97,28 @@ const ShareRecord: React.FC = () => {
           <div className="flex flex-row items-center text-sm font-bold sm:text-base">
             <span className="mr-1">Tracking since</span>
             <FcCalendar className="mr-1 text-lg" />
-            {record.startDate.toLocaleDateString("en-US", {
-              year: "numeric",
-              month: "2-digit",
-              day: "2-digit",
+            {record.startDate.toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: '2-digit',
+              day: '2-digit',
             })}
           </div>
           <div className="flex flex-row font-bold">
             <Styled.ResultsWrapper multiplier={multiplier}>
               <Styled.ResultsPill>
-                ${record.amount.toLocaleString("en-us")}
+                ${record.amount.toLocaleString('en-us')}
               </Styled.ResultsPill>
               <div className="ml-1 mr-1">→</div>
               <Styled.ResultsPill>
-                ${(record.amount * multiplier).toLocaleString("en-us")}
+                ${(record.amount * multiplier).toLocaleString('en-us')}
               </Styled.ResultsPill>
             </Styled.ResultsWrapper>
             <Styled.PercentageGain multiplier={multiplier}>
               <Styled.MultiplierText multiplier={multiplier}>
-                {multiplier < 1 ? "⇣" : "⇡"}
+                {multiplier < 1 ? '⇣' : '⇡'}
               </Styled.MultiplierText>
               <span className="mr-1 sm:text-xl">
-                {gains.toLocaleString("en-us")}
+                {gains.toLocaleString('en-us')}
               </span>
               %
             </Styled.PercentageGain>
@@ -133,7 +131,7 @@ const ShareRecord: React.FC = () => {
               </span>
               {record.notes.length
                 ? record.notes
-                : "No notes to display for this record"}
+                : 'No notes to display for this record'}
             </>
           </Styled.NotesWrapper>
         </Styled.InvestmentRecord>
@@ -151,7 +149,7 @@ const ShareRecord: React.FC = () => {
         </Styled.EmptyWrapper>
       )}
     </Styled.ShareRecordWrapper>
-  );
-};
+  )
+}
 
-export default ShareRecord;
+export default ShareRecord

@@ -9,37 +9,36 @@ import CreateRecordForm from '../CreateRecordForm';
 import * as Styled from './styles';
 
 interface Props {
-  fetchData: () => Promise<void>;
+  fetchData: () => Promise<void>
 }
 
 // template credit: https://www.creative-tim.com/learning-lab/tailwind-starter-kit/documentation/react/modals/small
 const Modal: React.FC<Props> = ({ fetchData }: Props) => {
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(false)
   const [company, setCompany] = useState<{
-    label: string;
-    value: string;
-  } | null>(null);
-  const [startDate, setStartDate] = useState<Date | null>(null);
-  const [amount, setAmount] = useState<number | null>(null);
-  const [isInvestmentMade, setIsInvestmentMade] = useState<boolean | null>(
-    null
-  );
-  const [notes, setNotes] = useState<string>("");
+    label: string
+    value: string
+  } | null>(null)
+  const [startDate, setStartDate] = useState<Date | null>(null)
+  const [amount, setAmount] = useState<number | null>(null)
+  const [isInvestmentMade, setIsInvestmentMade] = useState<boolean | null>(null)
+  const [notes, setNotes] = useState<string>('')
   const [errors, setErrors] = useState({
     company: false,
     startDate: false,
     amount: false,
     isInvestmentMade: false,
-  });
-  const [isSaving, setIsSaving] = useState(false);
-  const user = useFirebaseAuth();
+  })
+  const [isSaving, setIsSaving] = useState(false)
+  const user = useFirebaseAuth()
 
   const getCompanyDomain = async (symbol: string) => {
-    if (symbol === "FB") return "facebook.com";
-    const companyDomainPromise = await fetch(`/companyDomain?symbol=${symbol}`);
-    const companyDomain = await companyDomainPromise.text();
-    return companyDomain;
-  };
+    if (symbol === 'FB') return 'facebook.com'
+    if (symbol === 'META') return 'meta.com'
+    const companyDomainPromise = await fetch(`/companyDomain?symbol=${symbol}`)
+    const companyDomain = await companyDomainPromise.text()
+    return companyDomain
+  }
 
   const checkFormErrors = () => {
     setErrors({
@@ -47,21 +46,21 @@ const Modal: React.FC<Props> = ({ fetchData }: Props) => {
       startDate: startDate == null,
       amount: amount == null,
       isInvestmentMade: isInvestmentMade == null,
-    });
-  };
+    })
+  }
 
   const handleSave = async () => {
-    checkFormErrors();
+    checkFormErrors()
     if (
       company == null ||
       startDate == null ||
       amount == null ||
       isInvestmentMade == null
     )
-      return;
-    setIsSaving(true);
-    const companyDomain = await getCompanyDomain(company?.value as string);
-    const newRecordRef = await addDoc(collection(db, "records"), {
+      return
+    setIsSaving(true)
+    const companyDomain = await getCompanyDomain(company?.value as string)
+    const newRecordRef = await addDoc(collection(db, 'records'), {
       symbol: company?.value,
       companyName: company?.label,
       companyDomain: companyDomain,
@@ -71,15 +70,15 @@ const Modal: React.FC<Props> = ({ fetchData }: Props) => {
       notes: notes,
       isInvestmentMade: isInvestmentMade,
       uid: user?.uid,
-    });
+    })
     await updateDoc(newRecordRef, {
       id: newRecordRef.id,
-    });
+    })
     if (getWeeksDifference(startDate as Date, new Date()) < 1) {
       // create an EmailTask scheduled to run after a week
-      let weekFromToday = startDate;
-      weekFromToday.setDate(startDate.getDate() + 7);
-      addDoc(collection(db, "emailTasks"), {
+      let weekFromToday = startDate
+      weekFromToday.setDate(startDate.getDate() + 7)
+      addDoc(collection(db, 'emailTasks'), {
         isExecuted: false,
         options: {
           emailTo: user?.email,
@@ -94,34 +93,34 @@ const Modal: React.FC<Props> = ({ fetchData }: Props) => {
           isInvestmentMade: isInvestmentMade,
         },
         performAt: weekFromToday,
-        worker: "sendEmail",
-      });
+        worker: 'sendEmail',
+      })
     }
-    await fetchData();
-    setShowModal(false);
-    resetFields();
-    setIsSaving(false);
-  };
+    await fetchData()
+    setShowModal(false)
+    resetFields()
+    setIsSaving(false)
+  }
 
   const resetFields = () => {
-    setCompany(null);
-    setStartDate(null);
-    setAmount(null);
-    setIsInvestmentMade(null);
-    setNotes("");
+    setCompany(null)
+    setStartDate(null)
+    setAmount(null)
+    setIsInvestmentMade(null)
+    setNotes('')
     setErrors({
       company: false,
       startDate: false,
       amount: false,
       isInvestmentMade: false,
-    });
-  };
+    })
+  }
 
   return (
     <>
       <Styled.AddRecordButtonWrapper
         onClick={() => {
-          setShowModal(true);
+          setShowModal(true)
         }}
       >
         <MdAddTask className="mr-1" />
@@ -130,9 +129,9 @@ const Modal: React.FC<Props> = ({ fetchData }: Props) => {
       {showModal ? (
         <Styled.Backdrop
           onClick={(e: any) => {
-            if (e.target.localName === "main") {
-              setShowModal(false);
-              resetFields();
+            if (e.target.localName === 'main') {
+              setShowModal(false)
+              resetFields()
             }
           }}
         >
@@ -143,8 +142,8 @@ const Modal: React.FC<Props> = ({ fetchData }: Props) => {
                   <div className="text-2xl font-semibold">Add a Record</div>
                   <Styled.XButtonWrapper
                     onClick={() => {
-                      setShowModal(false);
-                      resetFields();
+                      setShowModal(false)
+                      resetFields()
                     }}
                   >
                     <Styled.XButton>×</Styled.XButton>
@@ -164,8 +163,8 @@ const Modal: React.FC<Props> = ({ fetchData }: Props) => {
                 <Styled.FooterWrapper>
                   <Styled.CloseButtonWrapper
                     onClick={() => {
-                      setShowModal(false);
-                      resetFields();
+                      setShowModal(false)
+                      resetFields()
                     }}
                   >
                     Close
@@ -179,7 +178,7 @@ const Modal: React.FC<Props> = ({ fetchData }: Props) => {
                         width={15}
                       />
                     ) : (
-                      "Save"
+                      'Save'
                     )}
                   </Styled.SaveButtonWrapper>
                 </Styled.FooterWrapper>
@@ -189,7 +188,7 @@ const Modal: React.FC<Props> = ({ fetchData }: Props) => {
         </Styled.Backdrop>
       ) : null}
     </>
-  );
-};
+  )
+}
 
-export default Modal;
+export default Modal

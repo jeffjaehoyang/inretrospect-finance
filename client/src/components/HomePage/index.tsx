@@ -7,7 +7,7 @@ const HomePage: React.FC = () => {
   return (
     <Styled.HomePageWrapper>
       <Styled.HomePageHeroWrapper>
-        <span>Literally, finance in retrospect.</span>
+        <span>Your investment decisions deserve better retrospection.</span>
         <span>For long-term investors 💸</span>
       </Styled.HomePageHeroWrapper>
       <Styled.HomePageTextWrapper>
@@ -18,7 +18,7 @@ const HomePage: React.FC = () => {
             exit={{ opacity: 0 }}
             transition={{ delay: 1 }}
           >
-            📝 <i>Record</i> your investment decisions.
+            <i>Record</i> your investment decisions.
           </motion.div>
         </Styled.HomePageText>
         <Styled.HomePageText>
@@ -28,7 +28,7 @@ const HomePage: React.FC = () => {
             exit={{ opacity: 0 }}
             transition={{ delay: 2 }}
           >
-            ⌛ Let <i>time</i> do the work.
+            Let <i>time</i> do the work.
           </motion.div>
         </Styled.HomePageText>
         <Styled.HomePageText>
@@ -38,12 +38,12 @@ const HomePage: React.FC = () => {
             exit={{ opacity: 0 }}
             transition={{ delay: 3 }}
           >
-            🧑‍🎓 Look back & <i>Learn</i>.
+            Look back & <i>Learn</i>.
           </motion.div>
         </Styled.HomePageText>
       </Styled.HomePageTextWrapper>
     </Styled.HomePageWrapper>
-  );
-};
+  )
+}
 
-export default HomePage;
+export default HomePage

@@ -1,12 +1,14 @@
-import React from 'react'
+import React from 'react';
 
-import * as Styled from './styles'
+import * as Styled from './styles';
 
 const Footer: React.FC = () => (
   <Styled.Footer>
     <Styled.Container>
       <Styled.Logo>inretrospect.finance</Styled.Logo>
-      <Styled.Copyright>© 2022 by Jeff Yang</Styled.Copyright>
+      <Styled.Copyright>
+        © {new Date().getFullYear()} by Jeff Yang
+      </Styled.Copyright>
     </Styled.Container>
   </Styled.Footer>
 )

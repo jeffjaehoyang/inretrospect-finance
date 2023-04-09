@@ -9,7 +9,7 @@ import {
     api, getDateString, getMultiplier, getStartDateMatchingData, getWeeksDifference
 } from '../../dataProcessing';
 import { ReactComponent as NoData } from '../../images/no_data.svg';
-import { APIResponseFormat, Record } from '../../interfaces';
+import { Record } from '../../interfaces';
 import { notifyRecordLocked } from '../../toasts';
 import Banner from '../Banner';
 import Modal from '../Modal';
@@ -17,64 +17,62 @@ import RecordCard from '../RecordCard';
 import * as Styled from './styles';
 
 const Dashboard: React.FC = () => {
-  const [recordsList, setRecordsList] = useState<Record[]>([]);
-  const [investedBalance, setInvestedBalance] = useState(0);
-  const [notInvestedBalance, setNotInvestedBalance] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
-  const user = useFirebaseAuth();
+  const [recordsList, setRecordsList] = useState<Record[]>([])
+  const [investedBalance, setInvestedBalance] = useState(0)
+  const [notInvestedBalance, setNotInvestedBalance] = useState(0)
+  const [isLoading, setIsLoading] = useState(false)
+  const user = useFirebaseAuth()
 
-  let tempInvestedBalance = 0;
-  let tempNotInvestedBalance = 0;
-  let tempRecords: Record[] = [];
+  let tempInvestedBalance = 0
+  let tempNotInvestedBalance = 0
+  let tempRecords: Record[] = []
 
   const fetchData = async () => {
-    if (user == null) return;
-    setIsLoading(true);
-    const recordsCollectionRef = collection(db, "records");
+    if (user == null) return
+    setIsLoading(true)
+    const recordsCollectionRef = collection(db, 'records')
     const recordsQuery = query(
       recordsCollectionRef,
-      where("uid", "==", user.uid)
-    );
-    const recordsForUser = await getDocs(recordsQuery);
+      where('uid', '==', user.uid)
+    )
+    const recordsForUser = await getDocs(recordsQuery)
     const recordsPromises = await recordsForUser.docs.map(
       async (recordForUser: any) => {
-        let record: any = recordForUser.data();
-        record.startDate = record.startDate.toDate();
-        const startDateString = getDateString(record.startDate);
+        let record: any = recordForUser.data()
+        record.startDate = record.startDate.toDate()
+        const startDateString = getDateString(record.startDate)
         const isRecordLocked: boolean =
-          getWeeksDifference(new Date(startDateString), new Date()) < 1;
-        record = { ...record, isRecordLocked: isRecordLocked };
+          getWeeksDifference(new Date(startDateString), new Date()) < 1
+        record = { ...record, isRecordLocked: isRecordLocked }
         if (!isRecordLocked) {
           try {
-            const response = await api<APIResponseFormat>(
-              `/stockData?symbol=${record.symbol}`
-            );
+            const response = await api(`/stockData?symbol=${record.symbol}`)
             let stockDataMatchingDates = getStartDateMatchingData(
               record,
-              response["Time Series (Daily)"]
-            );
-            record = { ...record, marketData: stockDataMatchingDates };
-            const multiplier = getMultiplier(stockDataMatchingDates.data);
-            const difference = record.amount * multiplier - record.amount;
-            record = { ...record, gains: difference };
-            if (record.isInvestmentMade) tempInvestedBalance += difference;
-            else tempNotInvestedBalance += difference;
+              response
+            )
+            record = { ...record, marketData: stockDataMatchingDates }
+            const multiplier = getMultiplier(stockDataMatchingDates.data)
+            const difference = record.amount * multiplier - record.amount
+            record = { ...record, gains: difference }
+            if (record.isInvestmentMade) tempInvestedBalance += difference
+            else tempNotInvestedBalance += difference
           } catch (e) {
-            console.log(e);
+            console.log(e)
           }
         }
-        tempRecords.push(record);
+        tempRecords.push(record)
       }
-    );
-    await Promise.all(recordsPromises);
-    setRecordsList(tempRecords);
-    setInvestedBalance(tempInvestedBalance);
-    setNotInvestedBalance(tempNotInvestedBalance);
-    setIsLoading(false);
-  };
+    )
+    await Promise.all(recordsPromises)
+    setRecordsList(tempRecords)
+    setInvestedBalance(tempInvestedBalance)
+    setNotInvestedBalance(tempNotInvestedBalance)
+    setIsLoading(false)
+  }
 
   useEffect(() => {
-    fetchData();
+    fetchData()
     notifyRecordLocked(
       <div className="flex items-center w-full">
         Records are locked for the first 7 days.
@@ -83,8 +81,8 @@ const Dashboard: React.FC = () => {
           onClick={() => toast.dismiss()}
         />
       </div>
-    );
-  }, []);
+    )
+  }, [])
 
   return (
     <Styled.DashboardWrapper>
@@ -109,7 +107,7 @@ const Dashboard: React.FC = () => {
                   setInvestedBalance={setInvestedBalance}
                   setNotInvestedBalance={setNotInvestedBalance}
                 />
-              );
+              )
             })
         ) : (
           <Styled.EmptyWrapper>
@@ -131,7 +129,7 @@ const Dashboard: React.FC = () => {
         )}
       </Styled.ContentWrapper>
     </Styled.DashboardWrapper>
-  );
-};
+  )
+}
 
-export default Dashboard;
+export default Dashboard
